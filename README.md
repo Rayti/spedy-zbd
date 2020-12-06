@@ -1,7 +1,7 @@
-#In progress!!
-#
-##Computer Science project
-###Uses:
+# In progress!!
+
+## Computer Science project
+### Uses:
 1. Java
 2. Spring Boot
 3. Maven
