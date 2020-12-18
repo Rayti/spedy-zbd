@@ -2,7 +2,6 @@ package com.example.spedy.dao;
 
 
 import com.example.spedy.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -20,7 +19,8 @@ public class UserDaoImpl implements UserDao {
     public static final String UPDATE = "UPDATE app_users SET login = ?, password = ? WHERE user_id = ?";
     public static final String DELETE = "DELETE FROM app_users WHERE user_id = ?";
     public static final String SELECT_ALL = "SELECT * FROM app_users;";
-    public static final String SELECT_ONE = "SELECT * FROM app_users WHERE user_id = ?";
+    public static final String SELECT_ONE_BY_ID = "SELECT * FROM app_users WHERE user_id = ?";
+    public static final String SELECT_ONE_BY_LOGIN = "SELECT * FROM app_users WHERE login = ?";
 
     public UserDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -48,7 +48,16 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User selectUser(User user) {
-        return jdbcTemplate.queryForObject(SELECT_ONE, new UserRowMapper(), user.getUserId());
+        return jdbcTemplate.queryForObject(SELECT_ONE_BY_ID, new UserRowMapper(), user.getUserId());
+    }
+
+    @Override
+    public User selectUser(String login) {
+        try{
+            return jdbcTemplate.queryForObject(SELECT_ONE_BY_LOGIN, new UserRowMapper(), login);
+        }catch (Exception e){
+            return null;
+        }
     }
 
     private class UserRowMapper implements RowMapper<User> {

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<h3>Users Update</h3>
+
+<p th:text="'Current login: ' + ${user.getLogin()}"></p>
+<p th:text="'Current password: ' + ${user.getPassword()}"></p>
+
+
+<form action="#" th:action="@{/users/update}" method="post">
+    <p>New login: <input type="text"  name="newLogin"></p>
+    <p>New password: <input type="text"  name="newPassword" ></p>
+    <input type="hidden" th:value="${user.getLogin}" name="oldLogin">
+    <p><input type="submit" value="Update"></p>
+</form>
+
+<a href="#" onclick="history.go(-1)">Go Back</a>
+
+</body>
+</html>

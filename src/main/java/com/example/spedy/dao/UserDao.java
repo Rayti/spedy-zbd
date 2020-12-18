@@ -14,4 +14,6 @@ public interface UserDao {
     List<User> selectUsers();
 
     User selectUser(User user);
+
+    User selectUser(String login);
 }

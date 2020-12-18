@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users section</title>
+</head>
+<body>
+    <h1>SpedyszynSite</h1>
+    <a th:href="@{/users}">Users</a>
+    <h3>Users</h3>
+    <form action="#" th:action="@{/users/search}" method="get">
+        <p>Search with login pattern: <input type="text" th:value="${loginSearch}" name="loginSearch"></p>
+        <p><input type="submit" value="Submit"></p>
+    </form>
+    <p th:text="${loginSearch.isEmpty()} ? '' : 'Login search pattern: ' + ${loginSearch}"></p>
+
+    <form action="#" th:action="@{/users/create}" method="get">
+        <p>Create new user <input type="submit" value="Create"></p>
+    </form>
+    <table>
+        <tr>
+            <th>Number</th>
+            <th>Login</th>
+            <th>Password</th>
+            <th>Action</th>
+        </tr>
+
+        <tr th:each="user, stat : ${users}">
+            <td th:text="${stat.count}"></td>
+            <td><a th:href="@{/users}" th:text="${user.getLogin()}"></a></td>
+            <td th:text="${user.getPassword()}"></td>
+            <td>
+                <a>
+                    <form action="#" th:action="@{/users}" method="post">
+                        <input type="hidden" th:value="${user.getLogin()}" name="deleteLogin" >
+                        <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that user will be lost.')">
+                    </form>
+                    <form action="#" th:action="@{/users/update}" method="get">
+                        <input type="hidden" th:value="${user.getLogin()}" name="login">
+                        <input type="submit" value="Update login and/or password">
+                    </form>
+                </a>
+            </td>
+        </tr>
+    </table>
+
+
+</body>
+</html>

@@ -1,5 +1,4 @@
 
---ok
 CREATE TABLE professions(
     profession_id UUID NOT NULL PRIMARY KEY,
     min_salary INTEGER NOT NULL,
@@ -7,14 +6,12 @@ CREATE TABLE professions(
     title VARCHAR(50) NOT NULL
 );
 
---ok
 CREATE TABLE app_users(
     user_id UUID NOT NULL PRIMARY KEY,
     login VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL
 );
 
---ok
 CREATE TABLE employees(
     employee_id UUID NOT NULL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
@@ -24,14 +21,12 @@ CREATE TABLE employees(
     user_id UUID NOT NULL REFERENCES app_users(user_id)
 );
 
---ok
 CREATE TABLE vehicles(
     vehicle_id UUID NOT NULL PRIMARY KEY,
     type VARCHAR(50) NOT NULL,
     power INTEGER NOT NULL
 );
 
---ok
 CREATE TABLE refuelling(
     refuel_id UUID NOT NULL PRIMARY KEY,
     vehicle_id UUID NOT NULL REFERENCES vehicles(vehicle_id),
@@ -42,14 +37,12 @@ CREATE TABLE refuelling(
     refuel_date DATE NOT NULL
 );
 
---ok
 CREATE TABLE cargo(
     cargo_id UUID NOT NULL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     description VARCHAR(50) NOT NULL
 );
 
---ok
 CREATE TABLE companies(
     company_id UUID NOT NULL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
@@ -59,7 +52,6 @@ CREATE TABLE companies(
     address VARCHAR(50) NOT NULL
 );
 
---ok
 CREATE TABLE complaints(
     complaint_id UUID NOT NULL PRIMARY KEY,
     employee_id UUID NOT NULL REFERENCES employees(employee_id),
@@ -67,7 +59,6 @@ CREATE TABLE complaints(
     description VARCHAR(150) NOT NULL
 );
 
---ok
 CREATE TABLE deliveries(
     delivery_id UUID NOT NULL PRIMARY KEY,
     employee_id UUID NOT NULL REFERENCES employees(employee_id),
@@ -81,7 +72,6 @@ CREATE TABLE deliveries(
     delay_days INTEGER
 );
 
---ok
 CREATE TABLE accidents(
     accident_id UUID NOT NULL PRIMARY KEY,
     delivery_id UUID NOT NULL REFERENCES deliveries(delivery_id),

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Information</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<h2>Info!</h2>
+<p th:text="${message}"></p>
+<a href="#" onclick="history.go(-1)">Go Back</a>
+</body>
+</html>

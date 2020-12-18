@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("userService")
 public class UserService {
@@ -23,8 +24,19 @@ public class UserService {
         return userDao.selectUser(user);
     }
 
+    public User getUser(String login) {
+        return userDao.selectUser(login);
+    }
+
     public List<User> getUsers() {
         return userDao.selectUsers();
+    }
+
+    public List<User> getSpecificUsers(String loginPattern) {
+        List<User> userList = userDao.selectUsers();
+        return userList.stream()
+                .filter(user -> user.getLogin().toLowerCase().contains(loginPattern.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
     public String deleteUser(User user) {

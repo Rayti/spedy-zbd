@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<h3>Users Creation</h3>
+
+<form action="#" th:action="@{/users/create}" method="post">
+    <p>New login: <input type="text" name="newLogin"></p>
+    <p>New password: <input type="text" name="newPassword" ></p>
+    <p><input type="submit" value="Create"></p>
+</form>
+
+<a href="#" onclick="history.go(-1)">Go Back</a>
+
+</body>
+</html>
