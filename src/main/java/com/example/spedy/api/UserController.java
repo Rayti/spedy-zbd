@@ -5,6 +5,7 @@ import com.example.spedy.model.User;
 import com.example.spedy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class UserController {
         List<User> users = userService.getUsers();
         model.addAttribute("users", users);
         model.addAttribute("loginSearch", "");
-        return "users";
+        return "users/users";
     }
 
     @PostMapping("users")
@@ -42,14 +43,14 @@ public class UserController {
         List<User> users = userService.getSpecificUsers(loginSearch);
         model.addAttribute("users", users);
         model.addAttribute("loginSearch", loginSearch);
-        return "users";
+        return "users/users";
     }
 
     @GetMapping("users/update")
     public String updateUserForm(@RequestParam String login, Model model) {
         User user = userService.getUser(login);
         model.addAttribute("user", user);
-        return "usersUpdate";
+        return "users/usersUpdate";
     }
 
     @PostMapping("users/update")
@@ -57,23 +58,23 @@ public class UserController {
                              @RequestParam String newLogin,
                              @RequestParam String newPassword,
                              Model model) {
+        User user = changeUserLoginAndPassword(oldLogin, newLogin, newPassword);
+        String message = userService.updateUser(user);
+        model.addAttribute("message", message);
+        return "info";
+    }
+
+    @NonNull
+    private User changeUserLoginAndPassword(String oldLogin, String newLogin, String newPassword) {
         User user = userService.getUser(oldLogin);
-        if (newLogin.length() < 3) {
-            model.addAttribute("message", "Login should have at least 3 characters.");
-            return "error";
-        }
-        else {
-            user.setLogin(newLogin);
-            user.setPassword(newPassword);
-            String message = userService.updateUser(user);
-            model.addAttribute("message", message);
-            return "info";
-        }
+        user.setLogin(newLogin);
+        user.setPassword(newPassword);
+        return user;
     }
 
     @GetMapping("users/create")
     public String createUserForm(Model model) {
-        return "usersCreation";
+        return "users/usersCreation";
     }
 
     @PostMapping("users/create")
@@ -85,11 +86,4 @@ public class UserController {
         model.addAttribute("message", message);
         return "info";
     }
-
-
-/*    public String createNewUser(@ModelAttribute User user,  Model model) {
-        userService.insertUser(user);
-    }*/
-
-
 }

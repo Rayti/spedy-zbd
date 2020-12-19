@@ -3,6 +3,7 @@ package com.example.spedy.dao;
 import com.example.spedy.model.User;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserDao {
     boolean insertUser(User user);
@@ -16,4 +17,6 @@ public interface UserDao {
     User selectUser(User user);
 
     User selectUser(String login);
+
+    User selectUser(UUID id);
 }

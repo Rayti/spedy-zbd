@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service("userService")
@@ -26,6 +27,10 @@ public class UserService {
 
     public User getUser(String login) {
         return userDao.selectUser(login);
+    }
+
+    public User getUser(UUID id) {
+        return userDao.selectUser(id);
     }
 
     public List<User> getUsers() {
@@ -47,7 +52,7 @@ public class UserService {
 
     public String insertUser(User user) {
         String login = user.getLogin();
-        if (existsUserWithSameName(login)) {
+        if (existsUserWithSameName(user)) {
             return "User with this name already exists";
         }
         String responseIfTrue = "User " + user.getLogin() + " added to database.";
@@ -56,7 +61,7 @@ public class UserService {
     }
 
     public String updateUser(User user) {
-        if (existsUserWithSameName(user.getLogin())) {
+        if (existsUserWithSameName(user)) {
             return "User with this name already exists.";
         }
         String responseIfTrue = "User updated.";
@@ -64,13 +69,12 @@ public class UserService {
         return userDao.updateUser(user) ? responseIfTrue : responseIfFalse;
     }
 
-    private boolean existsUserWithSameName(String login) {
+    private boolean existsUserWithSameName(User user) {
+        //TODO optimize
         return userDao.selectUsers()
                 .stream()
-                .anyMatch(daoUser -> daoUser.getLogin().equals(login));
+                .anyMatch(daoUser -> daoUser.getLogin().equals(user.getLogin())
+                && daoUser.getUserId().compareTo(user.getUserId()) != 0);
     }
-
-
-
 
 }

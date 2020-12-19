@@ -11,12 +11,15 @@ public class User {
 
     public User(String login, String password) {
         this.userId = UUID.randomUUID();
-        this.login = login;
-        this.password = password;
+        assignArguments(login, password);
     }
 
     public User(UUID userId, String login, String password) {
         this.userId = userId;
+        assignArguments(login, password);
+    }
+
+    private void assignArguments(String login, String password) {
         this.login = login;
         this.password = password;
     }

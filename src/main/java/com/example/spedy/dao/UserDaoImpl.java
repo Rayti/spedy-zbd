@@ -15,12 +15,12 @@ import java.util.UUID;
 public class UserDaoImpl implements UserDao {
 
     private final JdbcTemplate jdbcTemplate;
-    public static final String INSERT = "INSERT INTO app_users(user_id, login, password) VALUES (?, ?, ?)";
-    public static final String UPDATE = "UPDATE app_users SET login = ?, password = ? WHERE user_id = ?";
-    public static final String DELETE = "DELETE FROM app_users WHERE user_id = ?";
-    public static final String SELECT_ALL = "SELECT * FROM app_users;";
-    public static final String SELECT_ONE_BY_ID = "SELECT * FROM app_users WHERE user_id = ?";
-    public static final String SELECT_ONE_BY_LOGIN = "SELECT * FROM app_users WHERE login = ?";
+    private static final String INSERT = "INSERT INTO app_users(user_id, login, password) VALUES (?, ?, ?)";
+    private static final String UPDATE = "UPDATE app_users SET login = ?, password = ? WHERE user_id = ?";
+    private static final String DELETE = "DELETE FROM app_users WHERE user_id = ?";
+    private static final String SELECT_ALL = "SELECT * FROM app_users;";
+    private static final String SELECT_ONE_BY_ID = "SELECT * FROM app_users WHERE user_id = ?";
+    private static final String SELECT_ONE_BY_LOGIN = "SELECT * FROM app_users WHERE login = ?";
 
     public UserDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -47,8 +47,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User selectUser(User user) {
-        return jdbcTemplate.queryForObject(SELECT_ONE_BY_ID, new UserRowMapper(), user.getUserId());
+    public User selectUser(UUID id) {
+        return jdbcTemplate.queryForObject(SELECT_ONE_BY_ID, new UserRowMapper(), id);
     }
 
     @Override
@@ -58,6 +58,11 @@ public class UserDaoImpl implements UserDao {
         }catch (Exception e){
             return null;
         }
+    }
+
+    @Override
+    public User selectUser(User user) {
+        return selectUser(user.getUserId());
     }
 
     private class UserRowMapper implements RowMapper<User> {

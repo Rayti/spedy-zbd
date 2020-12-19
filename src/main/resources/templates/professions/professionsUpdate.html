@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profession section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+<h3>Profession Update</h3>
+
+<p th:text="'Current title: ' + ${profession.getTitle()}"></p>
+<p th:text="'Current min. salary: ' + ${profession.getMinSalary()}"></p>
+<p th:text="'Current max. salary: ' + ${profession.getMaxSalary()}"></p>
+
+
+<form action="#" th:action="@{/professions/update}" method="post">
+    <p>New title: <input type="text" name="newTitle" th:value="${profession.getTitle()}"></p>
+    <p>New min. salary: <input type="text" name="newMinSalary" th:value="${profession.getMinSalary()}"></p>
+    <p>New max. salary: <input type="text" name="newMaxSalary" th:value="${profession.getMaxSalary()}"></p>
+    <input type="hidden" th:value="${profession.getTitle()}" name="oldTitle">
+    <p><input type="submit" value="Update"></p>
+</form>
+
+<a href="#" onclick="history.go(-1)">Go Back</a>
+
+</body>
+</html>

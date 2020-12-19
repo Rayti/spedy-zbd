@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profession section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+
+<h3>Profession Creation</h3>
+
+<form action="#" th:action="@{/professions/create}" method="post">
+    <p>New title: <input type="text" name="title"></p>
+    <p>New min. salary: <input type="text" name="minSalary" ></p>
+    <p>New max. salary: <input type="text" name="maxSalary"></p>
+    <p><input type="submit" value="Create"></p>
+</form>
+
+<a href="#" onclick="history.go(-1)">Go Back</a>
+
+</body>
+</html>

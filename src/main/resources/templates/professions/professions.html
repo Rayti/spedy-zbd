@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+<h3>Professions</h3>
+
+<form action="#" th:action="@{/professions/create}" method="get">
+    <p>Create new profession <input type="submit" value="Create"></p>
+</form>
+<table>
+    <tr>
+        <th>Number</th>
+        <th>Title</th>
+        <th>Min. salary</th>
+        <th>Max. salary</th>
+    </tr>
+
+    <tr th:each="profession, stat : ${professions}">
+        <td th:text="${stat.count}"></td>
+        <td th:text="${profession.getTitle()}"></td>
+        <td th:text="${profession.getMinSalary()}"></td>
+        <td th:text="${profession.getMaxSalary()}"></td>
+        <td>
+            <a>
+                <form action="#" th:action="@{/professions}" method="post">
+                    <input type="hidden" th:value="${profession.getTitle()}" name="deleteTitle" >
+                    <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that profession will be lost.')">
+                </form>
+                <form action="#" th:action="@{/professions/update}" method="get">
+                    <input type="hidden" th:value="${profession.getTitle()}" name="title">
+                    <input type="submit" value="Update title and/or salaries">
+                </form>
+            </a>
+        </td>
+    </tr>
+</table>
+
+
+</body>
+</html>

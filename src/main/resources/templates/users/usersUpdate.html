@@ -7,6 +7,7 @@
 <body>
 <h1>SpedyszynSite</h1>
 <a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
 <h3>Users Update</h3>
 
 <p th:text="'Current login: ' + ${user.getLogin()}"></p>
@@ -14,8 +15,8 @@
 
 
 <form action="#" th:action="@{/users/update}" method="post">
-    <p>New login: <input type="text"  name="newLogin"></p>
-    <p>New password: <input type="text"  name="newPassword" ></p>
+    <p>New login: <input type="text"  name="newLogin" th:value="${user.getLogin()}"></p>
+    <p>New password: <input type="text"  name="newPassword" th:value="${user.getPassword()}"></p>
     <input type="hidden" th:value="${user.getLogin}" name="oldLogin">
     <p><input type="submit" value="Update"></p>
 </form>
