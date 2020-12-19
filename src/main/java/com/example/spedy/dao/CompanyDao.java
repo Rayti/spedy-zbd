@@ -41,7 +41,7 @@ public class CompanyDao implements SimpleDao<Company> {
     @Override
     public boolean update(Company model) {
         return jdbcTemplate.update(UPDATE, model.getName(), model.getDescription(),
-                model.getCountry(), model.getCity(), model.getAddress()) > 0;
+                model.getCountry(), model.getCity(), model.getAddress(), model.getId()) > 0;
     }
 
     @Override

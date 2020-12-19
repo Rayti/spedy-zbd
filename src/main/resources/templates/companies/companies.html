@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Companies section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+<a th:href="@{/cargos}">Cargos</a>
+<a th:href="@{/companies}">Companies</a>
+<h3>Companies</h3>
+
+<form action="#" th:action="@{/companies/create}" method="get">
+    <p>Create new Company <input type="submit" value="Create"></p>
+</form>
+<table>
+    <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Country</th>
+        <th>City</th>
+        <th>Address</th>
+        <th>Action</th>
+    </tr>
+
+    <tr th:each="company, stat : ${companies}">
+        <td th:text="${stat.count}"></td>
+        <td th:text="${company.getName()}"></td>
+        <td th:text="${company.getDescription()}"></td>
+        <td>
+            <a>
+                <form action="#" th:action="@{/companies}" method="post">
+                    <input type="hidden" th:value="${company.getName()}" name="deleteName" >
+                    <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that company will be lost.')">
+                </form>
+                <form action="#" th:action="@{/companies/update}" method="get">
+                    <input type="hidden" th:value="${company.getName()}" name="oldName">
+                    <input type="submit" value="Update company informations">
+                </form>
+            </a>
+        </td>
+    </tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Companies section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+<a th:href="@{/cargos}">Cargos</a>
+<a th:href="@{/companies}">Companies</a>
+<h3>Company Update</h3>
+
+<p th:text="'Current name: ' + ${company.getName()}"></p>
+<p th:text="'Current description: ' + ${company.getDescription()}"></p>
+<p th:text="'Current country: ' + ${company.getCountry()}"></p>
+<p th:text="'Current city: ' + ${company.getCity()}"></p>
+<p th:text="'Current address: ' + ${company.getAddress()}"></p>
+
+
+<form action="#" th:action="@{/companies/update}" method="post">
+    <p>New name: <input type="text" name="newName" th:value="${company.getName()}"></p>
+    <p>New description: <input type="text" name="newDescription" th:value="${company.getDescription()}"></p>
+    <p>New country: <input type="text" name="newCountry" th:value="${company.getCountry()}"></p>
+    <p>New city: <input type="text" name="newCity" th:value="${company.getCity()}"></p>
+    <p>New address: <input type="text" name="newAddress" th:value="${company.getAddress()}"></p>
+    <input type="hidden" th:value="${company.getName()}" name="oldName">
+    <p><input type="submit" value="Update"></p>
+</form>
+
+<a href="#" onclick="history.go(-1)">Go Back</a>
+
+</body>
+</html>

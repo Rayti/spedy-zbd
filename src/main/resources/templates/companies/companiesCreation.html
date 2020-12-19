@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cargos section</title>
+    <title>Companies section</title>
 </head>
 <body>
 <h1>SpedyszynSite</h1>
@@ -10,11 +10,14 @@
 <a th:href="@{/professions}">Professions</a>
 <a th:href="@{/cargos}">Cargos</a>
 <a th:href="@{/companies}">Companies</a>
-<h3>Cargo Creation</h3>
+<h3>Companies Creation</h3>
 
-<form action="#" th:action="@{/cargo/create}" method="post">
+<form action="#" th:action="@{/companies/create}" method="post">
     <p>New name: <input type="text" name="name"></p>
     <p>New description: <input type="text" name="description" ></p>
+    <p>New country: <input type="text" name="country"></p>
+    <p>New city: <input type="text" name="city"></p>
+    <p>New address: <input type="text" name="address"></p>
     <p><input type="submit" value="Create"></p>
 </form>
 
