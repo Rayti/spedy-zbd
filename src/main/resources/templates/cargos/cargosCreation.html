@@ -2,15 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Error occurred!</title>
+    <title>Cargos section</title>
 </head>
 <body>
 <h1>SpedyszynSite</h1>
 <a th:href="@{/users}">Users</a>
 <a th:href="@{/professions}">Professions</a>
 <a th:href="@{/cargos}">Cargos</a>
-<h2>Error occured!</h2>
-<p th:text="${message}"></p>
+<h3>Cargo Creation</h3>
+
+<form action="#" th:action="@{/cargos/create}" method="post">
+    <p>New name: <input type="text" name="name"></p>
+    <p>New description: <input type="text" name="description" ></p>
+    <p><input type="submit" value="Create"></p>
+</form>
+
 <a href="#" onclick="history.go(-1)">Go Back</a>
+
 </body>
 </html>

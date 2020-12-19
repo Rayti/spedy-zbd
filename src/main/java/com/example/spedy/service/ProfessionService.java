@@ -51,7 +51,6 @@ public class ProfessionService {
         String responseIfTrue = "Profession " + profession.getTitle() + " added to database.";
         String responseIfFalse = "Could not add new Profession. Check spelling.";
         return professionDao.insertProfession(profession) ? responseIfTrue : responseIfFalse;
-
     }
 
     public String updateProfession(Profession profession) {

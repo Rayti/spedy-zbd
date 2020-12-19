@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cargos section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+<a th:href="@{/cargos}">Cargos</a>
+<h3>Cargos</h3>
+
+<form action="#" th:action="@{/cargos/create}" method="get">
+    <p>Create new Cargo <input type="submit" value="Create"></p>
+</form>
+<table>
+    <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Action</th>
+    </tr>
+
+    <tr th:each="cargo, stat : ${cargos} ">
+        <td th:text="${stat.count}"></td>
+        <td th:text="${cargo.getName()}"></td>
+        <td th:text="${cargo.getDescription()}"></td>
+        <td>
+            <a>
+                <form action="#" th:action="@{/cargos}" method="post">
+                    <input type="hidden" th:value="${cargo.getName()}" name="deleteName" >
+                    <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that cargo will be lost.')">
+                </form>
+                <form action="#" th:action="@{/cargos/update}" method="get">
+                    <input type="hidden" th:value="${cargo.getName()}" name="name">
+                    <input type="submit" value="Update name and/or description">
+                </form>
+            </a>
+        </td>
+    </tr>
+</table>
+
+
+</body>
+</html>

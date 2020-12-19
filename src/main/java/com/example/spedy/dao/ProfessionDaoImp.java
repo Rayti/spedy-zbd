@@ -36,6 +36,7 @@ public class ProfessionDaoImp implements ProfessionDao {
                 profession.getProfessionId(),
                 profession.getMinSalary(),
                 profession.getMaxSalary(),
+
                 profession.getTitle()) > 0;
     }
 
