@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository("postgresCargoDao")
-public class CargoDaoImp implements CargoDao {
+public class CargoDaoImp implements SimpleDao<Cargo> {
 
     private final JdbcTemplate jdbcTemplate;
     private final static String INSERT = "INSERT INTO cargo(cargo_id, name, description)" +
@@ -31,32 +31,37 @@ public class CargoDaoImp implements CargoDao {
     }
 
     @Override
-    public boolean insertCargo(Cargo cargo) {
+    public boolean insert(Cargo cargo) {
         return jdbcTemplate.update(INSERT, cargo.getId(), cargo.getName(), cargo.getDescription()) > 0;
     }
 
     @Override
-    public boolean deleteCargo(Cargo cargo) {
+    public boolean delete(Cargo cargo) {
         return jdbcTemplate.update(DELETE, cargo.getId()) > 0;
     }
 
     @Override
-    public boolean updateCargo(Cargo cargo) {
+    public boolean update(Cargo cargo) {
         return jdbcTemplate.update(UPDATE, cargo.getName(), cargo.getDescription(), cargo.getId()) > 0;
     }
 
     @Override
-    public List<Cargo> selectCargos() {
+    public List<Cargo> selectAll() {
         return jdbcTemplate.query(SELECT_ALL, new CargoRowMapper());
     }
 
     @Override
-    public Cargo selectCargo(UUID id) {
+    public Cargo select(UUID id) {
         return jdbcTemplate.queryForObject(SELECT_ONE_BY_ID, new CargoRowMapper(), id);
     }
 
     @Override
-    public Cargo selectCargo(String name) {
+    public Cargo select(Cargo model) {
+        return select(model.getId());
+    }
+
+    @Override
+    public Cargo select(String name) {
         try {
             return jdbcTemplate.queryForObject(SELECT_ONE_BY_NAME, new CargoRowMapper(), name);
         } catch (Exception e) {

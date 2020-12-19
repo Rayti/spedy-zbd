@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+<a th:href="@{/cargos}">Cargos</a>
+<a th:href="@{/companies}">Companies</a>
+<a th:href="@{/vehicles}">Vehicles</a>
+<h3>Vehicle Update</h3>
+
+<p th:text="'Current name: ' + ${vehicle.getName()}"></p>
+<p th:text="'Current power: ' + ${vehicle.getPower()}"></p>
+<p th:text="'Current production year: ' + ${vehicle.getProductionYear()}"></p>
+
+<form action="#" th:action="@{/vehicles/update}" method="post">
+    <p>New name: <input type="text" name="newName" th:value="${vehicle.getName()}"></p>
+    <p>New power: <input type="text" name="newPower" th:value="${vehicle.getPower()}"></p>
+    <p>New production year: <input type="text" name="newProductionYear" th:value="${vehicle.getProductionYear()}"></p>
+    <input type="hidden" th:value="${vehicle.getName()}" name="oldName">
+    <p><input type="submit" value="Update"></p>
+</form>
+
+<a href="#" onclick="history.go(-1)">Go Back</a>
+
+</body>
+</html>

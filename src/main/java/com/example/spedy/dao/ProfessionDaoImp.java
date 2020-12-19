@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository("postgresProfessionDao")
-public class ProfessionDaoImp implements ProfessionDao {
+public class ProfessionDaoImp implements SimpleDao<Profession> {
 
     private final JdbcTemplate jdbcTemplate;
     private static final String INSERT = "INSERT INTO professions(profession_id, min_salary, max_salary, title) " +
@@ -31,7 +31,7 @@ public class ProfessionDaoImp implements ProfessionDao {
     }
 
     @Override
-    public boolean insertProfession(Profession profession) {
+    public boolean insert(Profession profession) {
         return jdbcTemplate.update(INSERT,
                 profession.getProfessionId(),
                 profession.getMinSalary(),
@@ -41,12 +41,12 @@ public class ProfessionDaoImp implements ProfessionDao {
     }
 
     @Override
-    public boolean deleteProfession(Profession profession) {
+    public boolean delete(Profession profession) {
         return jdbcTemplate.update(DELETE, profession.getProfessionId()) > 0;
     }
 
     @Override
-    public boolean updateProfession(Profession profession) {
+    public boolean update(Profession profession) {
         return jdbcTemplate.update(UPDATE,
                 profession.getMinSalary(),
                 profession.getMaxSalary(),
@@ -55,12 +55,12 @@ public class ProfessionDaoImp implements ProfessionDao {
     }
 
     @Override
-    public List<Profession> selectProfessions() {
+    public List<Profession> selectAll() {
         return jdbcTemplate.query(SELECT_ALL, new ProfessionRowMapper());
     }
 
     @Override
-    public Profession selectProfession(String title) {
+    public Profession select(String title) {
         try {
             return jdbcTemplate.queryForObject(SELECT_ONE_BY_TITLE, new ProfessionRowMapper(), title);
         } catch (Exception e) {
@@ -69,13 +69,13 @@ public class ProfessionDaoImp implements ProfessionDao {
     }
 
     @Override
-    public Profession selectProfession(UUID id) {
+    public Profession select(UUID id) {
         return jdbcTemplate.queryForObject(SELECT_ONE_BY_ID, new ProfessionRowMapper(), id);
     }
 
     @Override
-    public Profession selectProfession(Profession profession) {
-        return selectProfession(profession.getProfessionId());
+    public Profession select(Profession profession) {
+        return select(profession.getProfessionId());
     }
 
     private class ProfessionRowMapper implements RowMapper<Profession>{

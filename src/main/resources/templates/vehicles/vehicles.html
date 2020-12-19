@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicles section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+<a th:href="@{/cargos}">Cargos</a>
+<a th:href="@{/companies}">Companies</a>
+<a th:href="@{/vehicles}">Vehicles</a>
+<h3>Vehicles</h3>
+
+<form action="#" th:action="@{/vehicles/create}" method="get">
+    <p>Create new Vehicle <input type="submit" value="Create"></p>
+</form>
+<table>
+    <tr>
+        <th>Number</th>
+        <th>Name</th>
+        <th>Power</th>
+        <th>Production year</th>
+        <th>Action</th>
+    </tr>
+
+    <tr th:each="vehicle, stat : ${vehicles}">
+        <td th:text="${stat.count}"></td>
+        <td th:text="${vehicle.getName()}"></td>
+        <td th:text="${vehicle.getPower()}"></td>
+        <td th:text="${vehicle.getProductionYear()}"></td>
+        <td>
+            <a>
+                <form action="#" th:action="@{/vehicles}" method="post">
+                    <input type="hidden" th:value="${vehicle.getName()}" name="deleteName" >
+                    <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that vehicle will be lost.')">
+                </form>
+                <form action="#" th:action="@{/vehicles/update}" method="get">
+                    <input type="hidden" th:value="${vehicle.getName()}" name="oldName">
+                    <input type="submit" value="Update vehicle informations">
+                </form>
+            </a>
+        </td>
+    </tr>
+</table>
+
+
+</body>
+</html>

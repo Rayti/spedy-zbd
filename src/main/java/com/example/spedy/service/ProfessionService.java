@@ -1,47 +1,45 @@
 package com.example.spedy.service;
 
 
-import com.example.spedy.dao.ProfessionDao;
+import com.example.spedy.dao.SimpleDao;
 import com.example.spedy.model.Profession;
-import com.example.spedy.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service("professionService")
 public class ProfessionService {
 
-    private final ProfessionDao professionDao;
+    private final SimpleDao<Profession> dao;
 
     @Autowired
-    public ProfessionService(@Qualifier("postgresProfessionDao") ProfessionDao professionDao) {
-        this.professionDao = professionDao;
+    public ProfessionService(@Qualifier("postgresProfessionDao") SimpleDao<Profession> dao) {
+        this.dao = dao;
     }
 
     public Profession getProfession(Profession profession) {
-        return professionDao.selectProfession(profession);
+        return dao.select(profession);
     }
 
     public Profession getProfession(String title) {
-        return professionDao.selectProfession(title);
+        return dao.select(title);
     }
 
     public Profession getProfession(UUID id) {
-        return professionDao.selectProfession(id);
+        return dao.select(id);
     }
 
     public List<Profession> getProfessions() {
-        return professionDao.selectProfessions();
+        return dao.selectAll();
     }
 
     public String deleteProfession(Profession profession){
         String responseIfTrue = "Profession " + profession.getTitle() + " deleted from database.";
         String responseIfFalse = "Could not delete profession. Check spelling.";
-        return professionDao.deleteProfession(profession) ? responseIfTrue : responseIfFalse;
+        return dao.delete(profession) ? responseIfTrue : responseIfFalse;
     }
 
     public String insertProfession(Profession profession) {
@@ -50,7 +48,7 @@ public class ProfessionService {
         }
         String responseIfTrue = "Profession " + profession.getTitle() + " added to database.";
         String responseIfFalse = "Could not add new Profession. Check spelling.";
-        return professionDao.insertProfession(profession) ? responseIfTrue : responseIfFalse;
+        return dao.insert(profession) ? responseIfTrue : responseIfFalse;
     }
 
     public String updateProfession(Profession profession) {
@@ -59,11 +57,11 @@ public class ProfessionService {
         }
         String responseIfTrue = "Profession " + profession.getTitle() + " updated.";
         String responseIfFalse = " Could not update new Profession. Check spelling.";
-        return professionDao.updateProfession(profession) ? responseIfTrue : responseIfFalse;
+        return dao.update(profession) ? responseIfTrue : responseIfFalse;
     }
 
     private boolean professionExistsAlready(Profession profession) {
-        return professionDao.selectProfessions().stream()
+        return dao.selectAll().stream()
                 .anyMatch(daoProf -> daoProf.getTitle().equals(profession.getTitle())
                         && daoProf.getProfessionId().compareTo(profession.getProfessionId()) != 0);
     }

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Error occurred!</title>
+    <title>Vehicles section</title>
 </head>
 <body>
 <h1>SpedyszynSite</h1>
@@ -11,8 +11,16 @@
 <a th:href="@{/cargos}">Cargos</a>
 <a th:href="@{/companies}">Companies</a>
 <a th:href="@{/vehicles}">Vehicles</a>
-<h2>Error occured!</h2>
-<p th:text="${message}"></p>
+<h3>Vehicle Creation</h3>
+
+<form action="#" th:action="@{/vehicles/create}" method="post">
+    <p>New name: <input type="text" name="name"></p>
+    <p>New power: <input type="text" name="power" ></p>
+    <p>New production year: <input type="text" name="productionYear"></p>
+    <p><input type="submit" value="Create"></p>
+</form>
+
 <a href="#" onclick="history.go(-1)">Go Back</a>
+
 </body>
 </html>

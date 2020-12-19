@@ -1,7 +1,7 @@
 package com.example.spedy.service;
 
 
-import com.example.spedy.dao.UserDao;
+import com.example.spedy.dao.SimpleDao;
 import com.example.spedy.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,31 +14,31 @@ import java.util.stream.Collectors;
 @Service("userService")
 public class UserService {
 
-    private final UserDao userDao;
+    private final SimpleDao<User> dao;
 
     @Autowired
-    public UserService(@Qualifier("postgresUserDao") UserDao userDao) {
-        this.userDao = userDao;
+    public UserService(@Qualifier("postgresUserDao") SimpleDao<User> userDao) {
+        this.dao = userDao;
     }
 
     public User getUser(User user) {
-        return userDao.selectUser(user);
+        return dao.select(user);
     }
 
     public User getUser(String login) {
-        return userDao.selectUser(login);
+        return dao.select(login);
     }
 
     public User getUser(UUID id) {
-        return userDao.selectUser(id);
+        return dao.select(id);
     }
 
     public List<User> getUsers() {
-        return userDao.selectUsers();
+        return dao.selectAll();
     }
 
     public List<User> getSpecificUsers(String loginPattern) {
-        List<User> userList = userDao.selectUsers();
+        List<User> userList = dao.selectAll();
         return userList.stream()
                 .filter(user -> user.getLogin().toLowerCase().contains(loginPattern.toLowerCase()))
                 .collect(Collectors.toList());
@@ -47,7 +47,7 @@ public class UserService {
     public String deleteUser(User user) {
         String responseIfTrue = "User " + user.getLogin() + " deleted from database.";
         String responseIfFalse = "Could not delete user. Check spelling.";
-        return userDao.deleteUser(user) ? responseIfTrue : responseIfFalse;
+        return dao.delete(user) ? responseIfTrue : responseIfFalse;
     }
 
     public String insertUser(User user) {
@@ -57,7 +57,7 @@ public class UserService {
         }
         String responseIfTrue = "User " + user.getLogin() + " added to database.";
         String responseIfFalse = "Could not add new user. Check spelling.";
-        return userDao.insertUser(user) ? responseIfTrue : responseIfTrue;
+        return dao.insert(user) ? responseIfTrue : responseIfTrue;
     }
 
     public String updateUser(User user) {
@@ -66,12 +66,11 @@ public class UserService {
         }
         String responseIfTrue = "User updated.";
         String responseIfFalse = "Could not update user. Check spelling.";
-        return userDao.updateUser(user) ? responseIfTrue : responseIfFalse;
+        return dao.update(user) ? responseIfTrue : responseIfFalse;
     }
 
     private boolean existsUserWithSameName(User user) {
-        //TODO optimize
-        return userDao.selectUsers()
+        return dao.selectAll()
                 .stream()
                 .anyMatch(daoUser -> daoUser.getLogin().equals(user.getLogin())
                 && daoUser.getUserId().compareTo(user.getUserId()) != 0);

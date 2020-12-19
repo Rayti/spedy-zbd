@@ -10,6 +10,7 @@
 <a th:href="@{/professions}">Professions</a>
 <a th:href="@{/cargos}">Cargos</a>
 <a th:href="@{/companies}">Companies</a>
+<a th:href="@{/vehicles}">Vehicles</a>
 <h3>Companies</h3>
 
 <form action="#" th:action="@{/companies/create}" method="get">
@@ -30,6 +31,9 @@
         <td th:text="${stat.count}"></td>
         <td th:text="${company.getName()}"></td>
         <td th:text="${company.getDescription()}"></td>
+        <td th:text="${company.getCountry()}"></td>
+        <td th:text="${company.getCity()}"></td>
+        <td th:text="${company.getAddress()}"></td>
         <td>
             <a>
                 <form action="#" th:action="@{/companies}" method="post">

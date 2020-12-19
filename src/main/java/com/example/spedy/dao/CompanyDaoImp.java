@@ -11,8 +11,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
-@Repository("simpleCompanyDao")
-public class CompanyDao implements SimpleDao<Company> {
+@Repository("postgresCompanyDao")
+public class CompanyDaoImp implements SimpleDao<Company> {
 
     private final JdbcTemplate jdbcTemplate;
     private final static String INSERT = "INSERT INTO companies" +
@@ -28,7 +28,7 @@ public class CompanyDao implements SimpleDao<Company> {
     private final static String SELECT_ONE_BY_NAME = "SELECT * FROM companies WHERE name = ?";
 
     @Autowired
-    public CompanyDao(JdbcTemplate jdbcTemplate) {
+    public CompanyDaoImp(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

@@ -1,8 +1,6 @@
 package com.example.spedy.service;
 
-import com.example.spedy.dao.CompanyDao;
 import com.example.spedy.dao.SimpleDao;
-import com.example.spedy.model.Cargo;
 import com.example.spedy.model.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,7 +15,7 @@ public class CompanyService {
     public final SimpleDao<Company> dao;
 
     @Autowired
-    public CompanyService(@Qualifier("simpleCompanyDao") SimpleDao<Company> dao) {
+    public CompanyService(@Qualifier("postgresCompanyDao") SimpleDao<Company> dao) {
         this.dao = dao;
     }
 

@@ -1,6 +1,6 @@
 package com.example.spedy.service;
 
-import com.example.spedy.dao.CargoDao;
+import com.example.spedy.dao.SimpleDao;
 import com.example.spedy.model.Cargo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,34 +12,34 @@ import java.util.UUID;
 @Service("cargoService")
 public class CargoService {
 
-    private final CargoDao cargoDao;
+    private final SimpleDao<Cargo> dao;
 
     @Autowired
-    public CargoService(@Qualifier("postgresCargoDao") CargoDao cargoDao) {
-        this.cargoDao = cargoDao;
+    public CargoService(@Qualifier("postgresCargoDao") SimpleDao<Cargo> dao) {
+        this.dao = dao;
     }
 
 
     public Cargo getCargo(Cargo cargo) {
-        return cargoDao.selectCargo(cargo);
+        return dao.select(cargo);
     }
 
     public Cargo getCargo(String name) {
-        return cargoDao.selectCargo(name);
+        return dao.select(name);
     }
 
     public Cargo getCargo(UUID id) {
-        return cargoDao.selectCargo(id);
+        return dao.select(id);
     }
 
     public List<Cargo> getCargos() {
-        return cargoDao.selectCargos();
+        return dao.selectAll();
     }
 
     public String deleteCargo(Cargo cargo){
         String responseIfTrue = "Cargo " + cargo.getName() + " deleted from database.";
         String responseIfFalse = "Could not delete cargo. Check spelling.";
-        return cargoDao.deleteCargo(cargo) ? responseIfTrue : responseIfFalse;
+        return dao.delete(cargo) ? responseIfTrue : responseIfFalse;
     }
 
     public String insertCargo(Cargo cargo) {
@@ -48,7 +48,7 @@ public class CargoService {
         }
         String responseIfTrue = "Cargo " + cargo.getName() + " added to database.";
         String responseIfFalse = "Could not add new Cargo. Check spelling.";
-        return cargoDao.insertCargo(cargo) ? responseIfTrue : responseIfFalse;
+        return dao.insert(cargo) ? responseIfTrue : responseIfFalse;
     }
 
 
@@ -58,11 +58,11 @@ public class CargoService {
         }
         String responseIfTrue = "Cargo " + cargo.getName() + " updated.";
         String responseIfFalse = " Could not update new Cargo. Check spelling.";
-        return cargoDao.updateCargo(cargo) ? responseIfTrue : responseIfFalse;
+        return dao.update(cargo) ? responseIfTrue : responseIfFalse;
     }
 
     private boolean cargoExistsAlready(Cargo cargo) {
-        return cargoDao.selectCargos().stream()
+        return dao.selectAll().stream()
                 .anyMatch(c -> c.getName().equals(cargo.getName())
                     && c.getId().compareTo(cargo.getId()) != 0 );
     }

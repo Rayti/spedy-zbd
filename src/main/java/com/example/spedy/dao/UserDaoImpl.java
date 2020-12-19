@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository("postgresUserDao")
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl implements SimpleDao<User> {
 
     private final JdbcTemplate jdbcTemplate;
     private static final String INSERT = "INSERT INTO app_users(user_id, login, password) VALUES (?, ?, ?)";
@@ -27,42 +27,42 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean insertUser(User user) {
-        return jdbcTemplate.update(INSERT,user.getUserId(), user.getLogin(), user.getPassword()) > 0;
+    public boolean insert(User model) {
+        return jdbcTemplate.update(INSERT,model.getUserId(), model.getLogin(), model.getPassword()) > 0;
     }
 
     @Override
-    public boolean updateUser(User user) {
-        return jdbcTemplate.update(UPDATE, user.getLogin(), user.getPassword(), user.getUserId()) > 0;
+    public boolean update(User model) {
+        return jdbcTemplate.update(UPDATE, model.getLogin(), model.getPassword(), model.getUserId()) > 0;
     }
 
     @Override
-    public boolean deleteUser(User user) {
-        return jdbcTemplate.update(DELETE, user.getUserId()) > 0;
+    public boolean delete(User model) {
+        return jdbcTemplate.update(DELETE, model.getUserId()) > 0;
     }
 
     @Override
-    public List<User> selectUsers() {
+    public List<User> selectAll() {
         return jdbcTemplate.query(SELECT_ALL, new UserRowMapper());
     }
 
     @Override
-    public User selectUser(UUID id) {
+    public User select(UUID id) {
         return jdbcTemplate.queryForObject(SELECT_ONE_BY_ID, new UserRowMapper(), id);
     }
 
     @Override
-    public User selectUser(String login) {
+    public User select(String name) {
         try{
-            return jdbcTemplate.queryForObject(SELECT_ONE_BY_LOGIN, new UserRowMapper(), login);
+            return jdbcTemplate.queryForObject(SELECT_ONE_BY_LOGIN, new UserRowMapper(), name);
         }catch (Exception e){
             return null;
         }
     }
 
     @Override
-    public User selectUser(User user) {
-        return selectUser(user.getUserId());
+    public User select(User model) {
+        return select(model.getUserId());
     }
 
     private class UserRowMapper implements RowMapper<User> {
