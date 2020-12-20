@@ -11,6 +11,7 @@
 <a th:href="@{/cargos}">Cargos</a>
 <a th:href="@{/companies}">Companies</a>
 <a th:href="@{/vehicles}">Vehicles</a>
+<a th:href="@{/refuelings}">Refuelings</a>
 <h3>Vehicles</h3>
 
 <form action="#" th:action="@{/vehicles/create}" method="get">
@@ -39,6 +40,9 @@
                 <form action="#" th:action="@{/vehicles/update}" method="get">
                     <input type="hidden" th:value="${vehicle.getName()}" name="oldName">
                     <input type="submit" value="Update vehicle informations">
+                </form>
+                <form action="#" th:action="@{/refuelings/} + ${vehicle.getName()}">
+                    <input type="submit" value="Refuelings">
                 </form>
             </a>
         </td>

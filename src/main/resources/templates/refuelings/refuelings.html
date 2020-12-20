@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Refuelings section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+<a th:href="@{/cargos}">Cargos</a>
+<a th:href="@{/companies}">Companies</a>
+<a th:href="@{/vehicles}">Vehicles</a>
+<a th:href="@{/refuelings}">Refuelings</a>
+<h3>Refuelings</h3>
+
+
+<table th:each="vehicle, statV : ${vehicles}">
+    <tr th:text="'Vehicle: ' + ${vehicle.getName()} + ', power: ' +${vehicle.getPower()} + ', production year: ' + ${vehicle.getProductionYear()}"></tr>
+    <br>
+    <tr>
+        <form action="#" th:action="@{/refuelings/create}" method="get">
+            Create new refueling data
+            <input type="hidden" th:value="${vehicle.getId()}" name="vehicleId">
+            <input type="submit" value="Create">
+        </form>
+    </tr>
+
+    <tr th:unless="${refuelings.getAllForVehicle(vehicle.getId()).isEmpty()}">
+        <th>Number</th>
+        <th>Amount</th>
+        <th>Price per litre</th>
+        <th>Country</th>
+        <th>City</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="refueling, statR : ${refuelings.getAllForVehicle(vehicle.getId())}">
+        <td th:text="${statR.count}"></td>
+        <td th:text="${refueling.getAmount()}"></td>
+        <td th:text="${refueling.getPricePerLitre()}"></td>
+        <td th:text="${refueling.getCountry()}"></td>
+        <td th:text="${refueling.getCity()}"></td>
+        <td th:text="${refueling.getRefuelDate().toString()}"></td>
+        <td>
+            <form action="#" th:action="@{/refuelings}" method="post">
+                <input type="hidden" th:value="${refueling.getId()}" name="deleteId">
+                <input type="submit" value="Delete" onclick="window.alert('Are you sure? Refueling will be deleted.')">
+            </form>
+            <form action="#" th:action="@{/refuelings/update}" method="get">
+                <input type="hidden" th:value="${refueling.getId()}" name="oldId">
+                <input type="submit" value="Update informations">
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

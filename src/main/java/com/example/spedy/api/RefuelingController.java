@@ -16,11 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Date;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 public class RefuelingController {
 
+    //TODO Searching for specific vehicle
+    //TODO add creating refueling option to every vehicle
     private final RefuelingService refuelingService;
     private final VehicleService vehicleService;
 
@@ -33,26 +34,25 @@ public class RefuelingController {
 
     @GetMapping("refuelings")
     public String showAllRefuelings(Model model) {
-        List<Refueling> refuelings = refuelingService.getAll();
         List<Vehicle> vehicles = vehicleService.getVehicles();
-        model.addAttribute("refuelings", refuelings);
+        model.addAttribute("refuelings", refuelingService);
         model.addAttribute("vehicles", vehicles);
         return "refuelings/refuelings";
     }
 
+
     @GetMapping("refuelings/{vehicleName}")
     public String showSpecificRefuelings(@PathVariable String vehicleName, Model model) {
-        List<Refueling> refuelings = refuelingService.getAllForVehicle(vehicleName);
         List<Vehicle> vehicles = new ArrayList<>();
         vehicles.add(vehicleService.getVehicle(vehicleName));
-        model.addAttribute("refuelings", refuelings);
+        model.addAttribute("refuelings", refuelingService);
         model.addAttribute("vehicles", vehicles);
         return "refuelings/refuelings";
     }
 
     @PostMapping("refuelings")
-    public String deleteRefueling(@RequestParam UUID id, Model model) {
-        Refueling refueling = refuelingService.getRefueling(id);
+    public String deleteRefueling(@RequestParam UUID deleteId, Model model) {
+        Refueling refueling = refuelingService.getRefueling(deleteId);
         String message = refuelingService.deleteRefueling(refueling);
         model.addAttribute("message", message);
         return "info";
@@ -90,18 +90,18 @@ public class RefuelingController {
         return "refuelings/refuelingsCreation";
     }
 
-    @PostMapping("refueling/create")
-    public String createRefueling(@RequestParam UUID id,
-                                  @RequestParam UUID vehicleId,
+    @PostMapping("refuelings/create")
+    public String createRefueling(@RequestParam UUID vehicleId,
                                   @RequestParam int amount,
                                   @RequestParam double pricePerLitre,
                                   @RequestParam String country,
                                   @RequestParam String city,
                                   @RequestParam Date refuelDate,
                                   Model model) {
-        Refueling refueling = new Refueling(id, vehicleId, amount, pricePerLitre,
+        Refueling refueling = new Refueling(vehicleId, amount, pricePerLitre,
                 country, city, refuelDate);
         String message = refuelingService.insertRefueling(refueling);
+        model.addAttribute("message", message);
         return "info";
     }
 
