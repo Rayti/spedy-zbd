@@ -19,9 +19,6 @@ public class RefuelingService {
         this.dao = dao;
     }
 
-    public Refueling getRefueling(Refueling refueling) {
-        return dao.select(refueling);
-    }
 
     public Refueling getRefueling(UUID id) {
         return dao.select(id);
@@ -40,7 +37,7 @@ public class RefuelingService {
     }
 
     public String deleteRefueling(Refueling refueling) {
-        String responseIfTrue = "Refueling data deleted from database.";
+        String responseIfTrue = "Refueling deleted from database.";
         String responseIfFalse = "Could not delete refueling. Check spelling.";
         return dao.delete(refueling) ? responseIfTrue : responseIfFalse;
     }

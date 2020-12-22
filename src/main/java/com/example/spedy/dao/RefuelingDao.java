@@ -20,7 +20,5 @@ public interface RefuelingDao {
 
     List<Refueling> selectRefuelingForVehicle(UUID vehicleId);
 
-    Refueling select(Refueling refueling);
-
     Refueling select(UUID id);
 }
