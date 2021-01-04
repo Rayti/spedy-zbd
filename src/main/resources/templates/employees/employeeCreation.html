@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+<a th:href="@{/cargos}">Cargos</a>
+<a th:href="@{/companies}">Companies</a>
+<a th:href="@{/vehicles}">Vehicles</a>
+<a th:href="@{/refuelings}">Refuelings</a>
+<a th:href="@{/employees}">Employees</a>
+<h3>Employees</h3>
+
+
+
+<form action="#" th:action="@{/employees/create}" method="post">
+    <p>First name: <input type="text" name="newFirstName"></p>
+    <p>Last name: <input type="text" name="newLastName"></p>
+    <p>Salary: <input type="text" name="newSalary"></p>
+    <p>Profession: </p>
+    <p th:each="profession, stat : ${professions}" >
+        <input type="radio" th:id="${profession.getTitle()}"
+               th:name="'newProfessionId'"
+               th:value="${profession.getProfessionId()}">
+        <label th:for="${profession.getTitle()}"
+               th:text="${profession.getTitle()} + 'Salary between ' + ${profession.getMinSalary()} + ' and ' + ${profession.getMaxSalary()}"></label><br>
+    </p>
+    <br>
+    <p>Connect existing user</p>
+    <p th:each="user, stat : ${users}">
+        <input type="radio" th:id="${user.getLogin()}"
+               th:name="'newUserId'"
+               th:value="${user.getUserId()}">
+        <label th:for="${user.getLogin()}" th:text="${user.getLogin()}"></label><br>
+    </p>
+    <input type="submit" value="Create">
+</form>
+
+
+</body>
+</html>

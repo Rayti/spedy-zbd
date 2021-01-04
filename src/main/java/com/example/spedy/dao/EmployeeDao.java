@@ -23,4 +23,6 @@ public interface EmployeeDao {
 
     Employee selectWithUserId(UUID userId);
 
+    Employee selectWithUserName(String username);
+
 }

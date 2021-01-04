@@ -102,10 +102,6 @@ public class RefuelingDaoImp implements RefuelingDao{
         return jdbcTemplate.queryForObject(SELECT_ONE_BY_ID, new RefuelingRowMapper(), id);
     }
 
-    @Override
-    public Refueling select(Refueling refueling) {
-        return select(refueling.getId());
-    }
 
     private class RefuelingRowMapper implements RowMapper<Refueling> {
         @Override

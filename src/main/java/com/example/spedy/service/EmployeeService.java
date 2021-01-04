@@ -24,6 +24,14 @@ public class EmployeeService {
         return dao.select(id);
     }
 
+    public Employee getEmployeeWithUserId(UUID id) {
+        return dao.selectWithUserId(id);
+    }
+
+    public Employee getEmployeeWithUserName(String username) {
+        return dao.selectWithUserName(username);
+    }
+
     public List<Employee> getAll() {
         return dao.selectAll();
     }

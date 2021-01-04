@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+<a th:href="@{/cargos}">Cargos</a>
+<a th:href="@{/companies}">Companies</a>
+<a th:href="@{/vehicles}">Vehicles</a>
+<a th:href="@{/refuelings}">Refuelings</a>
+<a th:href="@{/employees}">Employees</a>
+<h3>Employees</h3>
+<a><form action="#" th:action="@{/employees}" method="post">
+    <input type="hidden" th:value="${employee.getEmployeeId()}" name="deleteId" >
+    <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that employee will be lost.')">
+</form></a>
+<a><form action="#" th:action="@{/employees/update}" method="get">
+        <input type="hidden" th:value="${employee.getEmployeeId()}" name="id">
+        <input type="submit" value="Update">
+</form></a>
+
+<p th:text="'First name: ' + ${employee.getFirstName()}"></p>
+<p th:text="'Last name: ' + ${employee.getLastName()}"></p>
+<p th:text="'Salary: ' + ${employee.getSalary()}"></p>
+<p th:text="'Profession: ' + ${title}"></p>
+<p th:text="'Username: ' + ${userName}"></p>
+<p th:text="'Number of complaints: ' + ${numberOfComplaints}"></p>
+<p th:text="'Number of deliveries: ' + ${numberOfDeliveries}"></p>
+
+</body>
+</html>

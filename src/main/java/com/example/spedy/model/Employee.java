@@ -5,8 +5,8 @@ import java.util.UUID;
 public class Employee {
 
     private final UUID employeeId;
-    private final UUID professionId;
-    private final UUID userId;
+    private UUID professionId;
+    private UUID userId;
     private String firstName;
     private String lastName;
     private int salary;

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+<a th:href="@{/cargos}">Cargos</a>
+<a th:href="@{/companies}">Companies</a>
+<a th:href="@{/vehicles}">Vehicles</a>
+<a th:href="@{/refuelings}">Refuelings</a>
+<a th:href="@{/employees}">Employees</a>
+<h3>Employees</h3>
+
+
+
+<form action="#" th:action="@{/employees/update}" method="post">
+    <p>First name: <input type="text" name="newFirstName" th:value="${employee.getFirstName()}"></p>
+    <p>Last name: <input type="text" name="newLastName" th:value="${employee.getLastName()}"></p>
+    <p>Salary: <input type="text" name="newSalary" th:value="${employee.getSalary()}"></p>
+    <p>Profession: </p>
+    <p th:each="profession, stat : ${professions}" >
+        <input th:if="${profession.getProfessionId().equals(employee.getProfessionId())}" type="radio" th:id="${profession.getTitle()}"
+               th:name="'newProfessionId'"
+               th:value="${profession.getProfessionId()}" checked>
+        <input th:unless="${profession.getProfessionId().equals(employee.getProfessionId())}" type="radio" th:id="${profession.getTitle()}"
+               th:name="'newProfessionId'"
+               th:value="${profession.getProfessionId()}">
+        <label th:for="${profession.getTitle()}"
+               th:text="${profession.getTitle()} + 'Salary between ' + ${profession.getMinSalary()} + ' and ' + ${profession.getMaxSalary()}"></label><br>
+    </p>
+    <br>
+    <p>User</p>
+    <p th:each="user, stat : ${users}">
+        <input th:if="${user.getUserId().equals(employee.getUserId())}" type="radio" th:id="${user.getLogin()}"
+               th:name="'newUserId'"
+               th:value="${user.getUserId()}" checked>
+        <input th:unless="${user.getUserId().equals(employee.getUserId())}" type="radio" th:id="${user.getLogin()}"
+               th:name="'newUserId'"
+               th:value="${user.getUserId()}">
+        <label th:for="${user.getLogin()}" th:text="${user.getLogin()}"></label><br>
+    </p>
+    <input type="hidden" name="oldId" th:value="${employee.getEmployeeId()}">
+    <input type="submit" value="Update">
+</form>
+
+
+</body>
+</html>

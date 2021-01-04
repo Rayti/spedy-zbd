@@ -32,7 +32,6 @@ public class EmployeeDaoImp implements EmployeeDao {
             "profession_id = ?, " +
             "user_id = ? " +
             "WHERE employee_id = ?";
-
     private final static String SELECT_ALL = "SELECT * FROM employees";
     private final static String SELECT_ALL_WITH_PROFESSION_TITLE = "SELECT * " +
             "FROM employees WHERE profession_id = " +
@@ -41,6 +40,8 @@ public class EmployeeDaoImp implements EmployeeDao {
             "WHERE employee_id = ?";
     private final static String SELECT_WITH_USER_ID = "SELECT * FROM employees " +
             "WHERE user_id = ?";
+    private final static String SELECT_WITH_USERNAME = "SELECT * FROM employees " +
+            "WHERE user_id = (SELECT user_id FROM app_users WHERE login = ?)";
 
     @Autowired
     public EmployeeDaoImp(JdbcTemplate jdbcTemplate) {
@@ -93,6 +94,11 @@ public class EmployeeDaoImp implements EmployeeDao {
     @Override
     public Employee selectWithUserId(UUID userId) {
         return jdbcTemplate.queryForObject(SELECT_WITH_USER_ID, new EmployeeRowMapper(), userId);
+    }
+
+    @Override
+    public Employee selectWithUserName(String username) {
+        return jdbcTemplate.queryForObject(SELECT_WITH_USERNAME, new EmployeeRowMapper(), username);
     }
 
     private class EmployeeRowMapper implements RowMapper<Employee>{

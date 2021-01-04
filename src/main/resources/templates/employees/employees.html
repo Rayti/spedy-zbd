@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+<a th:href="@{/cargos}">Cargos</a>
+<a th:href="@{/companies}">Companies</a>
+<a th:href="@{/vehicles}">Vehicles</a>
+<a th:href="@{/refuelings}">Refuelings</a>
+<a th:href="@{/employees}">Employees</a>
+<h3>Employees</h3>
+
+<form action="#" th:action="@{/employees/search}" method="get">
+    <p>Search for employees with patterns</p>
+    <p>First name: <input type="text" th:value="${firstNamePattern}" name="firstNamePattern"></p>
+    <p>Last name: <input type="text" th:value="${lastNamePattern}" name="lastNamePattern" </p>
+    <p><input type="submit" value="Submit"></p>
+</form>
+
+<form action="#" th:action="@{/employees/create}" method="get">
+    <p>Create new employee <input type="submit" value="Submit"></p>
+
+</form>
+
+<table>
+    <tr>
+        <th>Number</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Action</th>
+    </tr>
+
+    <tr th:each="employee, stat : ${employees}">
+        <td th:text="${stat.count}"></td>
+        <td th:text="${employee.getFirstName()}"></td>
+        <td th:text="${employee.getLastName()}"></td>
+        <td>
+            <a>
+                <form action="#" th:action="@{/employees/specific}" method="get">
+                    <input type="hidden" th:value="${employee.getEmployeeId()}" name="id">
+                    <input type="submit" value="Check further info">
+                </form>
+            </a>
+        </td>
+    </tr>
+</table>
+
+
+</body>
+</html>
