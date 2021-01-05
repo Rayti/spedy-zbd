@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 
-//TODO Add new column to show how many employees are in particular profession
-//TODO Add checking if min salary is lower than max salary inside database as procedure/function
 @Controller
 public class ProfessionController {
 

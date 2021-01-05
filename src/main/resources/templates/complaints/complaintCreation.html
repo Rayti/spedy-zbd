@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Complaints section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+<a th:href="@{/cargos}">Cargos</a>
+<a th:href="@{/companies}">Companies</a>
+<a th:href="@{/vehicles}">Vehicles</a>
+<a th:href="@{/refuelings}">Refuelings</a>
+<a th:href="@{/employees}">Employees</a>
+<h3>Complaints</h3>
+
+<form action="#" th:action="@{/employees/complaint}" method="post">
+    <p>First name: <input type="text" th:value="${employee.getFirstName()}" readonly></p>
+    <p>Last name: <input type="text" th:value="${employee.getLastName()}" readonly></p>
+    <p>Company: </p>
+    <p th:each="company, stat : ${companies}">
+        <input type="radio" th:id="${company.getName()}"
+            th:name="'newCompanyId'"
+            th:value="${company.getId()}">
+        <label th:for="${company.getId()}"
+               th:text="${company.getName()}"></label>
+    </p>
+    <p>Description: <input type="text" name="newDescription"></p>
+    <input type="hidden" name="newEmployeeId" th:value="${employee.getEmployeeId()}">
+    <input type="submit" value="Create">
+</form>
+
+</body>
+</html>

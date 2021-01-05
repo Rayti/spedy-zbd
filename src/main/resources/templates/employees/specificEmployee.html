@@ -30,6 +30,20 @@
 <p th:text="'Username: ' + ${userName}"></p>
 <p th:text="'Number of complaints: ' + ${numberOfComplaints}"></p>
 <p th:text="'Number of deliveries: ' + ${numberOfDeliveries}"></p>
-
+<br>
+<p>Complaints</p>
+<form action="#" th:action="@{/employees/complaint}" method="get">
+    <input type="hidden" th:value="${employee.getEmployeeId()}" name="employeeId">
+    <input type="submit" value="Create" >
+</form>
+<form action="#" th:action="@{/employees/delete_complaint}" method="post"
+      th:each="complaint, stat : ${complaints}">
+    <p th:text="${stat.count} + '. ' + ${complaint.complaint.getDescription()} + ' --- by company ' + ${complaint.company.getName()}">
+    </p>
+    <p>
+        <input type="submit" value="Delete ^">
+    </p>
+    <input type="hidden" name="id" th:value="${complaint.complaint.getComplaintId()}">
+</form>
 </body>
 </html>
