@@ -21,10 +21,6 @@ public class UserService {
         this.dao = userDao;
     }
 
-    public User getUser(User user) {
-        return dao.select(user);
-    }
-
     public User getUser(String login) {
         return dao.select(login);
     }

@@ -69,11 +69,6 @@ public class VehicleDaoImp implements SimpleDao<Vehicle> {
         return jdbcTemplate.queryForObject(SELECT_ONE_BY_ID, new VehicleRowMapper(), id);
     }
 
-    @Override
-    public Vehicle select(Vehicle model) {
-        return select(model.getId());
-    }
-
     private class VehicleRowMapper implements RowMapper<Vehicle> {
         @Override
         public Vehicle mapRow(ResultSet resultSet, int i) throws SQLException {

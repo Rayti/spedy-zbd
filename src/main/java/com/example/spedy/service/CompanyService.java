@@ -19,10 +19,6 @@ public class CompanyService {
         this.dao = dao;
     }
 
-    public Company getCompany(Company company) {
-        return dao.select(company);
-    }
-
     public Company getCompany(String name) {
         return dao.select(name);
     }

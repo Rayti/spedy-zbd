@@ -14,8 +14,6 @@ public interface SimpleDao<T> {
 
     List<T> selectAll();
 
-    T select(T model);
-
     T select(String name);
 
     T select(UUID id);

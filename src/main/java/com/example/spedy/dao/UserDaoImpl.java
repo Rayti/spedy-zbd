@@ -60,11 +60,6 @@ public class UserDaoImpl implements SimpleDao<User> {
         }
     }
 
-    @Override
-    public User select(User model) {
-        return select(model.getUserId());
-    }
-
     private class UserRowMapper implements RowMapper<User> {
         @Override
         public User mapRow(ResultSet resultSet, int i) throws SQLException {

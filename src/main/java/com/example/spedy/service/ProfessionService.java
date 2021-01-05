@@ -20,10 +20,6 @@ public class ProfessionService {
         this.dao = dao;
     }
 
-    public Profession getProfession(Profession profession) {
-        return dao.select(profession);
-    }
-
     public Profession getProfession(String title) {
         return dao.select(title);
     }

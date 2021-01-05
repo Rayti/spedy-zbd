@@ -20,10 +20,6 @@ public class CargoService {
     }
 
 
-    public Cargo getCargo(Cargo cargo) {
-        return dao.select(cargo);
-    }
-
     public Cargo getCargo(String name) {
         return dao.select(name);
     }

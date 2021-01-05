@@ -68,11 +68,6 @@ public class CompanyDaoImp implements SimpleDao<Company> {
         return jdbcTemplate.queryForObject(SELECT_ONE_BY_ID, new CompanyRowMapper(), id);
     }
 
-    @Override
-    public Company select(Company model) {
-        return select(model.getId());
-    }
-
     private class CompanyRowMapper implements RowMapper<Company> {
         @Override
         public Company mapRow(ResultSet resultSet, int i) throws SQLException {

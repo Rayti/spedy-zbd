@@ -19,11 +19,6 @@ public class EmployeeDaoImp implements EmployeeDao {
     private final static String INSERT_WITH_IDS = "INSERT INTO " +
             "employees(employee_id, first_name, last_name, salary, profession_id, user_id) " +
             "VALUES(?, ?, ?, ?, ?, ?)";
-    private final static String INSERT_WITH_TITLE_AND_USER_ID = "INSERT INTO " +
-            "employees(employee_id, first_name, last_name, salary, profession_id, user_id) " +
-            "VALUES(?, ?, ?, ?, " +
-                "(SELECT profession_id FROM professions WHERE title = ?), " +
-                "?)";
     private final static String DELETE = "DELETE FROM employees WHERE employee_id = ?";
     private final static String UPDATE = "UPDATE employees SET " +
             "first_name = ?, " +

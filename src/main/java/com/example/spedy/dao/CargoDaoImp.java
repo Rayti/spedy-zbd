@@ -56,11 +56,6 @@ public class CargoDaoImp implements SimpleDao<Cargo> {
     }
 
     @Override
-    public Cargo select(Cargo model) {
-        return select(model.getId());
-    }
-
-    @Override
     public Cargo select(String name) {
         try {
             return jdbcTemplate.queryForObject(SELECT_ONE_BY_NAME, new CargoRowMapper(), name);

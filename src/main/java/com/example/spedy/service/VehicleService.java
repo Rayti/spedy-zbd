@@ -19,10 +19,6 @@ public class VehicleService {
         this.dao = dao;
     }
 
-    public Vehicle getVehicle(Vehicle vehicle) {
-        return dao.select(vehicle);
-    }
-
     public Vehicle getVehicle(UUID id) {
         return dao.select(id);
     }

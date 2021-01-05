@@ -73,11 +73,6 @@ public class ProfessionDaoImp implements SimpleDao<Profession> {
         return jdbcTemplate.queryForObject(SELECT_ONE_BY_ID, new ProfessionRowMapper(), id);
     }
 
-    @Override
-    public Profession select(Profession profession) {
-        return select(profession.getProfessionId());
-    }
-
     private class ProfessionRowMapper implements RowMapper<Profession>{
 
         @Override
