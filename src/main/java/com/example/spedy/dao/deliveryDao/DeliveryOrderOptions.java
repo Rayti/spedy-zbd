@@ -1,4 +1,4 @@
-package com.example.spedy.dao;
+package com.example.spedy.dao.deliveryDao;
 
 public enum DeliveryOrderOptions {
     FROM_COMPANY_ASC(" (SELECT c0.name FROM companies c0 WHERE c0.company_id = from_company_id) "),

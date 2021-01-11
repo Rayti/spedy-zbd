@@ -1,6 +1,6 @@
-package com.example.spedy.dao;
+package com.example.spedy.dao.deliveryDao;
 
-import com.example.spedy.model.Delivery;
+import com.example.spedy.model.deliveries.Delivery;
 
 import java.sql.Date;
 import java.util.List;
