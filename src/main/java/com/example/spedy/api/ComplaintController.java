@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,9 +36,9 @@ public class ComplaintController {
     }
 
     @GetMapping("employees/complaint")
-    public String createComplaintForm(@RequestParam UUID employeeId,
+    public String createComplaintForm(HttpServletRequest request,
                                       Model model) {
-        Employee employee = employeeService.getEmployee(employeeId);
+        Employee employee = employeeService.getEmployee(UUID.fromString(request.getParameter("employeeId")));
         List<Company> companies = companyService.getCompanies();
         model.addAttribute("employee", employee);
         model.addAttribute("companies", companies);

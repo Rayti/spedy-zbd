@@ -4,7 +4,7 @@ public class DeliveryQueries {
 
     private final static String INSERT = "INSERT INTO " +
             "deliveries(delivery_id, employee_id, from_company_id, to_company_id, " +
-            "vehicle_id, cargo_id, start_date, finish_date, is_finished) " +
+            "vehicle_id, weight, cargo_id, start_date, finish_date, is_finished) " +
             "VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final static String DELETE = "DELETE FROM deliveries " +
             "WHERE delivery_id = ?";

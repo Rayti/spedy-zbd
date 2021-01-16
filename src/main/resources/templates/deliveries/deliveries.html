@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delivery section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+<a th:href="@{/cargos}">Cargos</a>
+<a th:href="@{/companies}">Companies</a>
+<a th:href="@{/vehicles}">Vehicles</a>
+<a th:href="@{/refuelings}">Refuelings</a>
+<a th:href="@{/employees}">Employees</a>
+<a th:href="@{/deliveries}">Deliveries</a>
+<h3>Deliveries</h3>
+
+<form action="#" th:action="@{/deliveries/search}" method="get">
+    <p>Filters</p>
+    <p>Search pattern:<input type="text" name="searchPattern" th:value="${oldSearchPattern}"></p>
+    <p>Special search:</p>
+    <p th:if="${oldSpecialOption == 'none'}"><label><input type="radio" name="specialOption" value="none" checked>Normal search</label></p>
+    <p th:unless="${oldSpecialOption == 'none'}"><label><input type="radio" name="specialOption" value="none" >Normal search</label></p>
+    <p th:if="${oldSpecialOption == 'finished'}"><label><input type="radio" name="specialOption" value="finished" checked>Only finished</label></p>
+    <p th:unless="${oldSpecialOption == 'finished'}"><label><input type="radio" name="specialOption" value="finished">Only finished</label></p>
+
+    <p th:if="${oldSpecialOption == 'unfinished'}"><label><input type="radio" name="specialOption" value="unfinished" checked>Only unfinished</label></p>
+    <p th:unless="${oldSpecialOption == 'unfinished'}"><label><input type="radio" name="specialOption" value="unfinished">Only unfinished</label></p>
+
+    <p th:if="${oldSpecialOption == 'startedBefore'}"><label><input type="radio" name="specialOption" value="startedBefore" checked>Only started before</label>
+        <input type="date" name="startedBeforeDate" th:value="${oldStartedBeforeDate}"></p>
+    <p th:unless="${oldSpecialOption == 'startedBefore'}"><label><input type="radio" name="specialOption" value="startedBefore">Only started before</label>
+        <input type="date" name="startedBeforeDate" th:value="${oldStartedBeforeDate}"></p>
+    <p th:if="${oldSpecialOption == 'startedAfter'}"><label><input type="radio" name="specialOption" value="startedAfter" checked>Only started after</label>
+        <input type="date" name="startedAfterDate" th:value="${oldStartedAfterDate}"></p>
+    <p th:unless="${oldSpecialOption == 'startedAfter'}"><label><input type="radio" name="specialOption" value="startedAfter">Only started after</label>
+        <input type="date" name="startedAfterDate" th:value="${oldStartedAfterDate}"></p>
+    <p th:if="${oldSpecialOption == 'startedBetween'}"><label><input type="radio" name="specialOption" value="startedBetween" checked>Only started between</label>
+        <input type="date" name="startedBetweenBeforeDate" th:value="${oldStartedBetweenBeforeDate}"> and
+        <input type="date" name="startedBetweenAfterDate" th:value="${oldStartedBetweenAfterDate}"></p>
+    <p th:unless="${oldSpecialOption == 'startedBetween'}"><label><input type="radio" name="specialOption" value="startedBetween">Only started between</label>
+        <input type="date" name="startedBetweenBeforeDate" th:value="${oldStartedBetweenBeforeDate}"> and
+        <input type="date" name="startedBetweenAfterDate" th:value="${oldStartedBetweenAfterDate}"></p>
+    <p>Sort by:</p>
+    <p th:if="${oldOrderBy == 1 || oldOrderBy == null}"><label><input type="radio" name="orderBy" value="1" checked>From company ascending</label></p>
+    <p th:unless="${oldOrderBy == 1}"><label><input type="radio" name="orderBy" value="1">From company ascending</label></p>
+    <p th:if="${oldOrderBy == 2}"><label><input type="radio" name="orderBy" value="2" checked>From company descending</label></p>
+    <p th:unless="${oldOrderBy == 2}"><label><input type="radio" name="orderBy" value="2">From company descending</label></p>
+
+    <p th:if="${oldOrderBy == 3}"><label><input type="radio" name="orderBy" value="3" checked>To company ascending</label></p>
+    <p th:unless="${oldOrderBy == 3}"><label><input type="radio" name="orderBy" value="3">To company ascending</label></p>
+
+    <p th:if="${oldOrderBy == 4}"><label><input type="radio" name="orderBy" value="4" checked>To company descending</label></p>
+    <p th:unless="${oldOrderBy == 4}"><label><input type="radio" name="orderBy" value="4">To company descending</label></p>
+
+    <p th:if="${oldOrderBy == 5}"><label><input type="radio" name="orderBy" value="5" checked>Vehicle ascending</label></p>
+    <p th:unless="${oldOrderBy == 5}"><label><input type="radio" name="orderBy" value="5">Vehicle ascending</label></p>
+
+    <p th:if="${oldOrderBy == 6}"><label><input type="radio" name="orderBy" value="6" checked>Vehicle descending</label></p>
+    <p th:unless="${oldOrderBy == 6}"><label><input type="radio" name="orderBy" value="6">Vehicle descending</label></p>
+
+    <p th:if="${oldOrderBy == 7}"><label><input type="radio" name="orderBy" value="7" checked>Weight ascending</label></p>
+    <p th:unless="${oldOrderBy == 7}"><label><input type="radio" name="orderBy" value="7">Weight ascending</label></p>
+
+    <p th:if="${oldOrderBy == 8}"><label><input type="radio" name="orderBy" value="8" checked>Weight descending</label></p>
+    <p th:unless="${oldOrderBy == 8}"><label><input type="radio" name="orderBy" value="8">Weight descending</label></p>
+
+    <p th:if="${oldOrderBy == 9}"><label><input type="radio" name="orderBy" value="9" checked>Start date ascending</label></p>
+    <p th:unless="${oldOrderBy == 9}"><label><input type="radio" name="orderBy" value="9">Start date ascending</label></p>
+
+    <p th:if="${oldOrderBy == 10}"><label><input type="radio" name="orderBy" value="10" checked>Start date descending</label></p>
+    <p th:unless="${oldOrderBy == 10}"><label><input type="radio" name="orderBy" value="10">Start date descending</label></p>
+
+    <p th:if="${oldOrderBy == 11}"><label><input type="radio" name="orderBy" value="11" checked>Finish date ascending</label></p>
+    <p th:unless="${oldOrderBy == 11}"><label><input type="radio" name="orderBy" value="11">Finish date ascending</label></p>
+
+    <p th:if="${oldOrderBy == 12}"><label><input type="radio" name="orderBy" value="12" checked>Finish date descending</label></p>
+    <p th:unless="${oldOrderBy == 12}"><label><input type="radio" name="orderBy" value="12">Finish date descending</label></p>
+
+    <p th:if="${oldOrderBy == 13}"><label><input type="radio" name="orderBy" value="13" checked>Is finished ascending</label></p>
+    <p th:unless="${oldOrderBy == 13}"><label><input type="radio" name="orderBy" value="13">Is finished ascending</label></p>
+
+    <p th:if="${oldOrderBy == 14}"><label><input type="radio" name="orderBy" value="14" checked>Is finished descending</label></p>
+    <p th:unless="${oldOrderBy == 14}"><label><input type="radio" name="orderBy" value="14">Is finished descending</label></p>
+
+    <p><input type="submit" value="Search"></p>
+</form>
+<form action="#" th:action="@{/deliveries}" method="get">
+    <p><input type="submit" value="Clear filters"></p>
+</form>
+<form action="#" th:action="@{/deliveries/create}" method="get">
+    <p>Create new delivery<input type="submit" value="Create"></p>
+</form>
+<table>
+    <tr>
+        <th>Number</th>
+        <th>From company</th>
+        <th>To company</th>
+        <th>Driver</th>
+        <th>Vehicle</th>
+        <th>Cargo</th>
+        <th>Weight</th>
+        <th>Start date</th>
+        <th>Finish date</th>
+        <th>Is finished</th>
+        <th colspan="2">Action</th>
+    </tr>
+
+    <tr th:each="delivery, stat : ${deliveries}">
+        <td th:text="${stat.count}"></td>
+        <td th:text="${delivery.getFromCompanyName()}"></td>
+        <td th:text="${delivery.getToCompanyName()}"></td>
+        <td th:text="${delivery.getEmployeeFirstName() + ' ' + delivery.getEmployeeLastName()}"></td>
+        <td th:text="${delivery.getVehicleName()}"></td>
+        <td th:text="${delivery.getCargoName()}"></td>
+        <td th:text="${delivery.getWeight()}"></td>
+        <td th:text="${delivery.getStartDate()}"></td>
+        <td th:text="${delivery.getFinishDate()}"></td>
+        <td th:text="${delivery.getIsFinished()}"></td>
+        <td>
+            <form action="#" th:action="@{deliveries}" method="post">
+                <input type="hidden" name="deliveryId" th:value="${delivery.getDeliveryId()}">
+                <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n This delivery will be lost.')">
+            </form>
+        </td>
+        <td>
+            <form action="#" th:action="@{/accidents}" method="get">
+                <input type="hidden" name="deliveryId" th:value="${delivery.getDeliveryId()}">
+                <input type="submit" value="Check accidents">
+            </form>
+        </td>
+    </tr>
+</table>
+
+
+</body>
+</html>

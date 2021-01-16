@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -78,10 +79,10 @@ public class UserController {
     }
 
     @PostMapping("users/create")
-    public String createUser(@RequestParam String newLogin,
-                             @RequestParam String newPassword,
-                             Model model) {
-        User user = new User(newLogin, newPassword);
+    public String createUser(HttpServletRequest request, Model model) {
+        User user = new User(
+                request.getParameter("newLogin"),
+                request.getParameter("newPassword"));
         String message = userService.insertUser(user);
         model.addAttribute("message", message);
         return "info";

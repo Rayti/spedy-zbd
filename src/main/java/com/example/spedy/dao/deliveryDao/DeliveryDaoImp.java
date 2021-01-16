@@ -149,12 +149,12 @@ public class DeliveryDaoImp implements DeliveryDao {
             String isFinished = resultSet.getString("is_finished");
             return DeliveryBuilder.begin()
                     .withObligatoryIds(
-                            (UUID) resultSet.getObject("delivery_id"),
-                            (UUID) resultSet.getObject("employee_id"),
-                            (UUID) resultSet.getObject("from_company_id"),
-                            (UUID) resultSet.getObject("to_company_id"),
-                            (UUID) resultSet.getObject("vehicle_id"),
-                            (UUID) resultSet.getObject("cargo_id"))
+                            (UUID)resultSet.getObject("delivery_id"),
+                            (UUID)resultSet.getObject("employee_id"),
+                            (UUID)resultSet.getObject("from_company_id"),
+                            (UUID)resultSet.getObject("to_company_id"),
+                            (UUID)resultSet.getObject("vehicle_id"),
+                            (UUID)resultSet.getObject("cargo_id"))
                     .withObligatoryWeight(
                             resultSet.getInt("weight"))
                     .withObligatoryDates(

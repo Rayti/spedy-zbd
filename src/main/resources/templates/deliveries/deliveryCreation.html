@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delivery section</title>
+</head>
+<body>
+<h1>SpedyszynSite</h1>
+<a th:href="@{/users}">Users</a>
+<a th:href="@{/professions}">Professions</a>
+<a th:href="@{/cargos}">Cargos</a>
+<a th:href="@{/companies}">Companies</a>
+<a th:href="@{/vehicles}">Vehicles</a>
+<a th:href="@{/refuelings}">Refuelings</a>
+<a th:href="@{/employees}">Employees</a>
+<a th:href="@{/deliveries}">Deliveries</a>
+<h3>Deliveries</h3>
+<br>
+<p>Create delivery</p>
+<form action="#" th:action="@{/deliveries/create}" method="post">
+    <p>From company: </p>
+    <p th:each="company, stat : ${companies}">
+        <input type="radio" th:id="${company.getId()}"
+               th:name="'newFromCompanyId'"
+               th:value="${company.getId()}">
+        <label th:for="${company.getId()}"
+               th:text="${company.getName()} + ', ' + ${company.getCountry()} + ', ' + ${company.getCity()} + ', ' + ${company.getAddress()}">
+        </label><br>
+    </p>
+    <p>To company: </p>
+    <p th:each="company, stat : ${companies}">
+        <input type="radio" th:id="${company.getId()}"
+               th:name="'newToCompanyId'"
+               th:value="${company.getId()}">
+        <label th:for="${company.getId()}"
+               th:text="${company.getName()} + ', ' + ${company.getCountry()} + ', ' + ${company.getCity()} + ', ' + ${company.getAddress()}">
+        </label><br>
+    </p>
+    <p>Driver: </p>
+    <p th:each="employee, stat : ${employees}">
+        <input type="radio" th:id="${employee.getEmployeeId()}"
+               th:value="${employee.getEmployeeId()}"
+               th:name="'newEmployeeId'">
+        <label th:for="${employee.getEmployeeId()}"
+               th:text="${employee.getFirstName()} + ' ' + ${employee.getLastName()}">
+        </label>
+    </p>
+    <p>Vehicle: </p>
+    <p th:each="vehicle, stat : ${vehicles}">
+        <input type="radio" th:id="${vehicle.getId()}"
+               th:value="${vehicle.getId()}"
+               th:name="'newVehicleId'">
+        <label th:for="${vehicle.getId()}"
+               th:text="${vehicle.getName()} + ', power: ' + ${vehicle.getPower()} + ' bhp, production year: ' + ${vehicle.getProductionYear()}">
+        </label>
+    </p>
+    <p>Cargo: </p>
+    <p th:each="cargo, stat : ${cargos}">
+        <input type="radio" th:id="${cargo.getId()}"
+               th:value="${cargo.getId()}"
+               th:name="'newCargoId'">
+        <label th:for="${cargo.getId()}"
+               th:text="${cargo.getName()}">
+        </label>
+    </p>
+    <p>Weight of cargo: <input type="text" name="newWeight"></p>
+    <p>Start date: <input type="date" name="newStartDate"></p>
+    <p>Finish date: <input type="date" name="newFinishDate"></p>
+    <p>Is this delivery already finished?</p>
+    <p>
+        <input type="radio" id="YES"
+            th:name="'newIsFinished'"
+            value="YES">
+        <label for="YES">Yes</label>
+        <input type="radio" id="NO"
+            th:name="'newIsFinished'"
+            value="NO">
+        <label for="NO">No</label>
+    </p>
+    <p><input type="submit" value="Create"></p>
+</form>
+
+</body>
+</html>
