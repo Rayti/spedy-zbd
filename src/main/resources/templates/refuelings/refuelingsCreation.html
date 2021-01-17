@@ -2,18 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/mystyle.css"/>
     <title>Refueling section</title>
 </head>
 <body>
-<h1>SpedyszynSite</h1>
-<a th:href="@{/users}">Users</a>
-<a th:href="@{/professions}">Professions</a>
-<a th:href="@{/cargos}">Cargos</a>
-<a th:href="@{/companies}">Companies</a>
-<a th:href="@{/vehicles}">Vehicles</a>
-<a th:href="@{/refuelings}">Refuelings</a>
-<a th:href="@{/employees}">Employees</a>
-<a th:href="@{/deliveries}">Deliveries</a>
+<h1><a th:href="@{/}">SpedyszynSite</a></h1>
+<table class="menu">
+    <tr>
+        <th><a th:href="@{/users}">Users</a></th>
+        <th><a th:href="@{/professions}">Professions</a></th>
+        <th><a th:href="@{/cargos}">Cargos</a></th>
+        <th><a th:href="@{/companies}">Companies</a></th>
+        <th><a th:href="@{/vehicles}">Vehicles</a></th>
+        <th class="active"><a th:href="@{/refuelings}">Refuelings</a></th>
+        <th><a th:href="@{/employees}">Employees</a></th>
+        <th><a th:href="@{/deliveries}">Deliveries</a></th>
+    </tr>
+</table>
+
 <h3>Refueling Creation</h3>
 
 <form action="#" th:action="@{/refuelings/create}" method="post">
@@ -26,7 +32,7 @@
     <p><input type="submit" value="Create"></p>
 </form>
 
-<a href="#" onclick="history.go(-1)">Go Back</a>
+<p><a href="#" onclick="history.go(-1)">Go Back</a></p>
 
 </body>
 </html>

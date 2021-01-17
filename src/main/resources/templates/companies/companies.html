@@ -2,18 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/mystyle.css"/>
     <title>Companies section</title>
 </head>
 <body>
-<h1>SpedyszynSite</h1>
-<a th:href="@{/users}">Users</a>
-<a th:href="@{/professions}">Professions</a>
-<a th:href="@{/cargos}">Cargos</a>
-<a th:href="@{/companies}">Companies</a>
-<a th:href="@{/vehicles}">Vehicles</a>
-<a th:href="@{/refuelings}">Refuelings</a>
-<a th:href="@{/employees}">Employees</a>
-<a th:href="@{/deliveries}">Deliveries</a>
+<h1><a th:href="@{/}">SpedyszynSite</a></h1>
+<table class="menu">
+    <tr>
+        <th><a th:href="@{/users}">Users</a></th>
+        <th><a th:href="@{/professions}">Professions</a></th>
+        <th><a th:href="@{/cargos}">Cargos</a></th>
+        <th class="active"><a th:href="@{/companies}">Companies</a></th>
+        <th><a th:href="@{/vehicles}">Vehicles</a></th>
+        <th><a th:href="@{/refuelings}">Refuelings</a></th>
+        <th><a th:href="@{/employees}">Employees</a></th>
+        <th><a th:href="@{/deliveries}">Deliveries</a></th>
+    </tr>
+</table>
+
 <h3>Companies</h3>
 
 <form action="#" th:action="@{/companies/create}" method="get">
@@ -27,7 +33,7 @@
         <th>Country</th>
         <th>City</th>
         <th>Address</th>
-        <th>Action</th>
+        <th colspan="2">Action</th>
     </tr>
 
     <tr th:each="company, stat : ${companies}">
@@ -38,16 +44,16 @@
         <td th:text="${company.getCity()}"></td>
         <td th:text="${company.getAddress()}"></td>
         <td>
-            <a>
-                <form action="#" th:action="@{/companies}" method="post">
-                    <input type="hidden" th:value="${company.getName()}" name="deleteName" >
-                    <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that company will be lost.')">
-                </form>
-                <form action="#" th:action="@{/companies/update}" method="get">
-                    <input type="hidden" th:value="${company.getName()}" name="oldName">
-                    <input type="submit" value="Update company informations">
-                </form>
-            </a>
+            <form action="#" th:action="@{/companies}" method="post">
+                <input type="hidden" th:value="${company.getName()}" name="deleteName" >
+                <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that company will be lost.')">
+            </form>
+        </td>
+        <td>
+            <form action="#" th:action="@{/companies/update}" method="get">
+                <input type="hidden" th:value="${company.getName()}" name="oldName">
+                <input type="submit" value="Update company informations">
+            </form>
         </td>
     </tr>
 </table>

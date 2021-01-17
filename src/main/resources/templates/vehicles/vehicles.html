@@ -2,18 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/mystyle.css"/>
     <title>Vehicles section</title>
 </head>
 <body>
-<h1>SpedyszynSite</h1>
-<a th:href="@{/users}">Users</a>
-<a th:href="@{/professions}">Professions</a>
-<a th:href="@{/cargos}">Cargos</a>
-<a th:href="@{/companies}">Companies</a>
-<a th:href="@{/vehicles}">Vehicles</a>
-<a th:href="@{/refuelings}">Refuelings</a>
-<a th:href="@{/employees}">Employees</a>
-<a th:href="@{/deliveries}">Deliveries</a>
+<h1><a th:href="@{/}">SpedyszynSite</a></h1>
+<table class="menu">
+    <tr>
+        <th><a th:href="@{/users}">Users</a></th>
+        <th><a th:href="@{/professions}">Professions</a></th>
+        <th><a th:href="@{/cargos}">Cargos</a></th>
+        <th><a th:href="@{/companies}">Companies</a></th>
+        <th class="active"><a th:href="@{/vehicles}">Vehicles</a></th>
+        <th><a th:href="@{/refuelings}">Refuelings</a></th>
+        <th><a th:href="@{/employees}">Employees</a></th>
+        <th><a th:href="@{/deliveries}">Deliveries</a></th>
+    </tr>
+</table>
 <h3>Vehicles</h3>
 
 <form action="#" th:action="@{/vehicles/create}" method="get">
@@ -25,7 +30,7 @@
         <th>Name</th>
         <th>Power</th>
         <th>Production year</th>
-        <th>Action</th>
+        <th colspan="3">Action</th>
     </tr>
 
     <tr th:each="vehicle, stat : ${vehicles}">
@@ -34,19 +39,21 @@
         <td th:text="${vehicle.getPower()}"></td>
         <td th:text="${vehicle.getProductionYear()}"></td>
         <td>
-            <a>
-                <form action="#" th:action="@{/vehicles}" method="post">
-                    <input type="hidden" th:value="${vehicle.getName()}" name="deleteName" >
-                    <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that vehicle will be lost.')">
-                </form>
-                <form action="#" th:action="@{/vehicles/update}" method="get">
-                    <input type="hidden" th:value="${vehicle.getName()}" name="oldName">
-                    <input type="submit" value="Update vehicle informations">
-                </form>
-                <form action="#" th:action="@{/refuelings/} + ${vehicle.getName()}">
-                    <input type="submit" value="Refuelings">
-                </form>
-            </a>
+            <form action="#" th:action="@{/refuelings/} + ${vehicle.getName()}">
+                <input type="submit" value="Go to it's refuelings">
+            </form>
+        </td>
+        <td>
+            <form action="#" th:action="@{/vehicles/update}" method="get">
+                <input type="hidden" th:value="${vehicle.getName()}" name="oldName">
+                <input type="submit" value="Update">
+            </form>
+        </td>
+        <td>
+            <form action="#" th:action="@{/vehicles}" method="post">
+                <input type="hidden" th:value="${vehicle.getName()}" name="deleteName" >
+                <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that vehicle will be lost.')">
+            </form>
         </td>
     </tr>
 </table>

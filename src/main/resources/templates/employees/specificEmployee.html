@@ -2,18 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/mystyle.css"/>
     <title>Employees section</title>
 </head>
 <body>
-<h1>SpedyszynSite</h1>
-<a th:href="@{/users}">Users</a>
-<a th:href="@{/professions}">Professions</a>
-<a th:href="@{/cargos}">Cargos</a>
-<a th:href="@{/companies}">Companies</a>
-<a th:href="@{/vehicles}">Vehicles</a>
-<a th:href="@{/refuelings}">Refuelings</a>
-<a th:href="@{/employees}">Employees</a>
-<a th:href="@{/deliveries}">Deliveries</a>
+<h1><a th:href="@{/}">SpedyszynSite</a></h1>
+<table class="menu">
+    <tr>
+        <th><a th:href="@{/users}">Users</a></th>
+        <th><a th:href="@{/professions}">Professions</a></th>
+        <th><a th:href="@{/cargos}">Cargos</a></th>
+        <th><a th:href="@{/companies}">Companies</a></th>
+        <th><a th:href="@{/vehicles}">Vehicles</a></th>
+        <th><a th:href="@{/refuelings}">Refuelings</a></th>
+        <th class="active"><a th:href="@{/employees}">Employees</a></th>
+        <th><a th:href="@{/deliveries}">Deliveries</a></th>
+    </tr>
+</table>
+
 <h3>Employees</h3>
 <a><form action="#" th:action="@{/employees}" method="post">
     <input type="hidden" th:value="${employee.getEmployeeId()}" name="deleteId" >
@@ -33,18 +39,38 @@
 <p th:text="'Number of deliveries: ' + ${numberOfDeliveries}"></p>
 <br>
 <p>Complaints</p>
-<form action="#" th:action="@{/employees/complaint}" method="get">
-    <input type="hidden" th:value="${employee.getEmployeeId()}" name="employeeId">
-    <input type="submit" value="Create" >
-</form>
-<form action="#" th:action="@{/employees/delete_complaint}" method="post"
-      th:each="complaint, stat : ${complaints}">
-    <p th:text="${stat.count} + '. ' + ${complaint.complaint.getDescription()} + ' --- by company ' + ${complaint.company.getName()}">
-    </p>
-    <p>
-        <input type="submit" value="Delete ^">
-    </p>
-    <input type="hidden" name="id" th:value="${complaint.complaint.getComplaintId()}">
-</form>
+<table>
+    <tr>
+        <th colspan="4">Complaints</th>
+    </tr>
+    <tr>
+        <th>Number</th>
+        <th>Description</th>
+        <th>By</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="complaint, stat : ${complaints}">
+        <td th:text="${stat.count}"></td>
+        <td th:text="${complaint.complaint.getDescription()}"></td>
+        <td th:text="${complaint.company.getName()}"></td>
+        <td>
+            <form action="#" th:action="@{/employees/delete_complaint}" method="post">
+
+            </form>
+            <input type="submit" value="Delete">
+            <input type="hidden" name="id" th:value="${complaint.complaint.getComplaintId()}">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <form action="#" th:action="@{/employees/complaint}" method="get">
+                <input type="hidden" th:value="${employee.getEmployeeId()}" name="employeeId">
+                <input type="submit" value="Create new complaint for this employee" >
+            </form>
+        </td>
+    </tr>
+</table>
+
+
 </body>
 </html>

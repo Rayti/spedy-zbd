@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 
 @Controller
@@ -27,6 +31,13 @@ public class CompanyController {
     public String showAllCompanies(Model model) {
         List<Company> companies = companyService.getCompanies();
         model.addAttribute("companies", companies);
+        return "companies/companies";
+    }
+
+    @GetMapping("companies/{id}")
+    public String showCompany(@PathVariable UUID id, Model model){
+        Company company = companyService.getCompany(id);
+        model.addAttribute("companies", Collections.singletonList(company));
         return "companies/companies";
     }
 

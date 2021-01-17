@@ -2,18 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/mystyle.css"/>
     <title>Users section</title>
 </head>
 <body>
-<h1>SpedyszynSite</h1>
-<a th:href="@{/users}">Users</a>
-<a th:href="@{/professions}">Professions</a>
-<a th:href="@{/cargos}">Cargos</a>
-<a th:href="@{/companies}">Companies</a>
-<a th:href="@{/vehicles}">Vehicles</a>
-<a th:href="@{/refuelings}">Refuelings</a>
-<a th:href="@{/employees}">Employees</a>
-<a th:href="@{/deliveries}">Deliveries</a>
+<h1><a th:href="@{/}">SpedyszynSite</a></h1>
+<table class="menu">
+    <tr>
+        <th class="active"><a th:href="@{/users}">Users</a></th>
+        <th><a th:href="@{/professions}">Professions</a></th>
+        <th><a th:href="@{/cargos}">Cargos</a></th>
+        <th><a th:href="@{/companies}">Companies</a></th>
+        <th><a th:href="@{/vehicles}">Vehicles</a></th>
+        <th><a th:href="@{/refuelings}">Refuelings</a></th>
+        <th><a th:href="@{/employees}">Employees</a></th>
+        <th><a th:href="@{/deliveries}">Deliveries</a></th>
+    </tr>
+</table>
+
 <h3>Users</h3>
 <form action="#" th:action="@{/users/search}" method="get">
     <p>Search with login pattern: <input type="text" th:value="${loginSearch}" name="loginSearch"></p>
@@ -28,23 +34,24 @@
         <th>Number</th>
         <th>Login</th>
         <th>Password</th>
-        <th>Action</th>
+        <th colspan="2">Action</th>
     </tr>
 
     <tr th:each="user, stat : ${users}">
         <td th:text="${stat.count}"></td>
-        <td><a th:href="@{/users}" th:text="${user.getLogin()}"></a></td>
+        <td th:text="${user.getLogin()}"></td>
         <td th:text="${user.getPassword()}"></td>
         <td>
-            <a><form action="#" th:action="@{/users}" method="post">
+            <form action="#" th:action="@{/users}" method="post">
                 <input type="hidden" th:value="${user.getLogin()}" name="deleteLogin" >
                 <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that user will be lost.')">
             </form>
+        </td>
+        <td>
                 <form action="#" th:action="@{/users/update}" method="get">
                     <input type="hidden" th:value="${user.getLogin()}" name="login">
                     <input type="submit" value="Update login and/or password">
                 </form>
-            </a>
         </td>
     </tr>
 </table>
