@@ -100,6 +100,9 @@ public class DeliveryController {
 
     @PostMapping("deliveries/create")
     public String createDelivery(HttpServletRequest request, Model model) {
+        if(!checkDataInput(request, model)){
+            return "info";
+        }
         Delivery delivery = DeliveryBuilder.begin()
                 .withObligatoryIds(
                         UUID.randomUUID(),
@@ -119,6 +122,22 @@ public class DeliveryController {
         String message = deliveryService.insertDelivery(delivery);
         model.addAttribute("message", message);
         return "info";
+    }
+
+    private boolean checkDataInput(HttpServletRequest request, Model model) {
+        if(request.getParameter("newEmployeeId") == null ||
+                request.getParameter("newFromCompanyId") == null ||
+                request.getParameter("newToCompanyId") == null ||
+                request.getParameter("newVehicleId") == null ||
+                request.getParameter("newCargoId") == null ||
+                request.getParameter("newWeight").isEmpty() ||
+                request.getParameter("newStartDate") == null ||
+                request.getParameter("newFinishDate") == null ||
+                request.getParameter("newIsFinished") == null ){
+            model.addAttribute("message", "Not enough data to create delivery!");
+            return false;
+        }
+        return true;
     }
 
     private List<Delivery> handleSearchWithFilters(String pattern, int orderBy,

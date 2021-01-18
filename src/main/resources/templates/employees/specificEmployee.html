@@ -46,11 +46,25 @@
     </tr>
     <tr>
         <th>Number of complaints</th>
-        <td th:text="${numberOfComplaints}"></td>
+        <td th:if="${numberOfComplaints != null}" th:text="${numberOfComplaints}"></td>
+        <td class="click" th:unless="${numberOfComplaints != null}">
+            <form>
+                <input type="hidden" name="id" th:value="${employee.getEmployeeId()}">
+                <input th:if="${numberOfDeliveries == null}" type="submit" value="Get" th:formaction="@{/employees/specific/with/complaints}" formmethod="get">
+                <input th:unless="${numberOfDeliveries == null}" type="submit" value="Get" th:formaction="@{/employees/specific/with/compAndDeli}" formmethod="get" >
+            </form>
+        </td>
     </tr>
     <tr>
         <th>Number of deliveries</th>
-        <td th:text="${numberOfDeliveries}"></td>
+        <td th:if="${numberOfDeliveries != null}" th:text="${numberOfDeliveries}"></td>
+        <td class="click" th:unless="${numberOfDeliveries != null}">
+            <form>
+                <input type="hidden" name="id" th:value="${employee.getEmployeeId()}">
+                <input th:if="${numberOfComplaints == null}" type="submit" value="Get" th:formaction="@{/employees/specific/with/deliveries}" th:formmethod="get">
+                <input th:unless="${numberOfComplaints == null}" type="submit" value="Get" th:formaction="@{/employees/specific/with/compAndDeli}" th:formmethod="get">
+            </form>
+        </td>
     </tr>
 </table>
 <form class="filter" action="#" th:action="@{/employees}" method="post">

@@ -1,6 +1,5 @@
 package com.example.spedy.dao;
 
-import com.example.spedy.dao.deliveryDao.AccidentDao;
 import com.example.spedy.model.Accident;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

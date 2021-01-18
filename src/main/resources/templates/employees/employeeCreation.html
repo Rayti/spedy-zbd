@@ -56,7 +56,7 @@
                            th:name="'newProfessionId'"
                            th:value="${profession.getProfessionId()}">
                     <label th:for="${profession.getTitle()}"
-                           th:text="${profession.getTitle()} + 'Salary between ' + ${profession.getMinSalary()} + ' and ' + ${profession.getMaxSalary()}"></label>
+                           th:text="${profession.getTitle()} + ' - salary between ' + ${profession.getMinSalary()} + ' and ' + ${profession.getMaxSalary()}"></label>
                 </li>
             </ul>
         </li>

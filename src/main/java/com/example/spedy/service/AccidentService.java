@@ -1,6 +1,6 @@
 package com.example.spedy.service;
 
-import com.example.spedy.dao.deliveryDao.AccidentDao;
+import com.example.spedy.dao.AccidentDao;
 import com.example.spedy.model.Accident;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

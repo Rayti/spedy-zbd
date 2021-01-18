@@ -1,4 +1,4 @@
-package com.example.spedy.dao.deliveryDao;
+package com.example.spedy.dao;
 
 import com.example.spedy.model.Accident;
 

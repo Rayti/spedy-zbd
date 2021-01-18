@@ -23,18 +23,21 @@ public class EmployeeController {
     private final UserService userService;
     private final ComplaintService complaintService;
     private final CompanyService companyService;
+    private final FunctionsService functionsService;
 
     @Autowired
     public EmployeeController(@Qualifier("employeeService") EmployeeService employeeService,
                               @Qualifier("professionService") ProfessionService professionService,
                               @Qualifier("userService") UserService userService,
                               @Qualifier("complaintService") ComplaintService complaintService,
-                              @Qualifier("companyService") CompanyService companyService) {
+                              @Qualifier("companyService") CompanyService companyService,
+                              @Qualifier("functionsService") FunctionsService functionsService) {
         this.employeeService = employeeService;
         this.professionService = professionService;
         this.userService = userService;
         this.complaintService = complaintService;
         this.companyService = companyService;
+        this.functionsService = functionsService;
     }
 
     @GetMapping("/employees")
@@ -73,6 +76,36 @@ public class EmployeeController {
     @GetMapping("/employees/specific")
     public String showSpecificEmployee(@RequestParam UUID id,
                                        Model model) {
+        handleSpecificEmployee(id, model);
+        return "employees/specificEmployee";
+    }
+
+    @GetMapping("/employees/specific/with/complaints")
+    public String showSpecificEmployeeWithComplaintsNr(@RequestParam UUID id,
+                                                       Model model){
+        handleSpecificEmployee(id, model);
+        model.addAttribute("numberOfComplaints", functionsService.getNumberOfComplaintsForEmployee(id));
+        return "employees/specificEmployee";
+    }
+
+    @GetMapping("/employees/specific/with/deliveries")
+    public String showSpecificEmployeeWithDeliveriesNr(@RequestParam UUID id,
+                                                       Model model){
+        handleSpecificEmployee(id, model);
+        model.addAttribute("numberOfDeliveries", functionsService.getNumberOfDeliveriesForEmployee(id));
+        return "employees/specificEmployee";
+    }
+
+    @GetMapping("/employees/specific/with/compAndDeli")
+    public String showSpecificEmployeeWithComplaintsAndDeliveriesNr(@RequestParam UUID id,
+                                                                    Model model) {
+        handleSpecificEmployee(id, model);
+        model.addAttribute("numberOfComplaints", functionsService.getNumberOfComplaintsForEmployee(id));
+        model.addAttribute("numberOfDeliveries", functionsService.getNumberOfDeliveriesForEmployee(id));
+        return "employees/specificEmployee";
+    }
+
+    private void handleSpecificEmployee(@RequestParam UUID id, Model model) {
         Employee employee = employeeService.getEmployee(id);
         String professionTitle = professionService.getProfession(employee.getProfessionId()).getTitle();
         String userName = userService.getUser(employee.getUserId()).getLogin();
@@ -80,10 +113,7 @@ public class EmployeeController {
         model.addAttribute("employee", employee);
         model.addAttribute("userName", userName);
         model.addAttribute("title", professionTitle);
-        model.addAttribute("numberOfComplaints", 90909);
-        model.addAttribute("numberOfDeliveries", 90909);
         model.addAttribute("complaints", complaintWithCompanyList);
-        return "employees/specificEmployee";
     }
 
     private List<ComplaintWithCompany> getComplaintsWithCompanies(UUID employeeId) {

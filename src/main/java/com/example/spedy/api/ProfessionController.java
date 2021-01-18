@@ -2,6 +2,7 @@ package com.example.spedy.api;
 
 
 import com.example.spedy.model.Profession;
+import com.example.spedy.service.FunctionsService;
 import com.example.spedy.service.ProfessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,17 +20,20 @@ import java.util.List;
 public class ProfessionController {
 
     private final ProfessionService professionService;
+    private final FunctionsService functionsService;
 
     @Autowired
-    public ProfessionController(@Qualifier("professionService") ProfessionService professionService) {
+    public ProfessionController(@Qualifier("professionService") ProfessionService professionService,
+                                @Qualifier("functionsService") FunctionsService functionsService) {
         this.professionService = professionService;
+        this.functionsService = functionsService;
     }
 
     @GetMapping("professions")
     public String showAllProfessions(Model model) {
         List<Profession> professionList = professionService.getProfessions();
         model.addAttribute("professions", professionList);
-        return "/professions/professions";
+        return "professions/professions";
     }
 
     @PostMapping("professions")
@@ -38,6 +42,14 @@ public class ProfessionController {
         String message = professionService.deleteProfession(profession);
         model.addAttribute("message", message);
         return "info";
+    }
+
+    @GetMapping("professions/increase")
+    public String increasePayRangeForAllProfessions(Model model){
+        functionsService.increaseAllProfessionsPayRange(0.03f);
+        List<Profession> professionList = professionService.getProfessions();
+        model.addAttribute("professions", professionList);
+        return "professions/professions";
     }
 
     @GetMapping("professions/update")
