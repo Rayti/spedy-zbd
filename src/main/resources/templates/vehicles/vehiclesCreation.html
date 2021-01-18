@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Vehicles section</title>
 </head>
 <body>
@@ -21,11 +23,37 @@
 </table>
 <h3>Vehicles Creation</h3>
 
-<form action="#" th:action="@{/vehicles/create}" method="post">
-    <p>New name: <input type="text" name="name"></p>
-    <p>New power: <input type="text" name="power" ></p>
-    <p>New production year: <input type="text" name="productionYear"></p>
-    <p><input type="submit" value="Create"></p>
+<form class="filter" action="#" th:action="@{/vehicles/create}" method="post">
+    <ol>
+        <li>Name:
+            <ul>
+                <li>
+                    <input type="text" name="name">
+                </li>
+            </ul>
+        </li>
+        <li>Power:
+            <ul>
+                <li>
+                    <input type="text" name="power" >
+                </li>
+            </ul>
+        </li>
+        <li>Production year:
+            <ul>
+                <li>
+                    <input type="text" name="productionYear">
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <input type="submit" value="Create vehicle">
+                </li>
+            </ul>
+        </li>
+    </ol>
 </form>
 
 <p><a href="#" onclick="history.go(-1)">Go Back</a></p>

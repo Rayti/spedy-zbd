@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Delivery section</title>
 </head>
 <body>
@@ -23,67 +25,109 @@
 <h3>Deliveries</h3>
 <br>
 <p>Create delivery</p>
-<form action="#" th:action="@{/deliveries/create}" method="post">
-    <p>From company: </p>
-    <p th:each="company, stat : ${companies}">
-        <input type="radio" th:id="${company.getId()}"
-               th:name="'newFromCompanyId'"
-               th:value="${company.getId()}">
-        <label th:for="${company.getId()}"
-               th:text="${company.getName()} + ', ' + ${company.getCountry()} + ', ' + ${company.getCity()} + ', ' + ${company.getAddress()}">
-        </label><br>
-    </p>
-    <p>To company: </p>
-    <p th:each="company, stat : ${companies}">
-        <input type="radio" th:id="${company.getId()}"
-               th:name="'newToCompanyId'"
-               th:value="${company.getId()}">
-        <label th:for="${company.getId()}"
-               th:text="${company.getName()} + ', ' + ${company.getCountry()} + ', ' + ${company.getCity()} + ', ' + ${company.getAddress()}">
-        </label><br>
-    </p>
-    <p>Driver: </p>
-    <p th:each="employee, stat : ${employees}">
-        <input type="radio" th:id="${employee.getEmployeeId()}"
-               th:value="${employee.getEmployeeId()}"
-               th:name="'newEmployeeId'">
-        <label th:for="${employee.getEmployeeId()}"
-               th:text="${employee.getFirstName()} + ' ' + ${employee.getLastName()}">
-        </label>
-    </p>
-    <p>Vehicle: </p>
-    <p th:each="vehicle, stat : ${vehicles}">
-        <input type="radio" th:id="${vehicle.getId()}"
-               th:value="${vehicle.getId()}"
-               th:name="'newVehicleId'">
-        <label th:for="${vehicle.getId()}"
-               th:text="${vehicle.getName()} + ', power: ' + ${vehicle.getPower()} + ' bhp, production year: ' + ${vehicle.getProductionYear()}">
-        </label>
-    </p>
-    <p>Cargo: </p>
-    <p th:each="cargo, stat : ${cargos}">
-        <input type="radio" th:id="${cargo.getId()}"
-               th:value="${cargo.getId()}"
-               th:name="'newCargoId'">
-        <label th:for="${cargo.getId()}"
-               th:text="${cargo.getName()}">
-        </label>
-    </p>
-    <p>Weight of cargo: <input type="text" name="newWeight"></p>
-    <p>Start date: <input type="date" name="newStartDate"></p>
-    <p>Finish date: <input type="date" name="newFinishDate"></p>
-    <p>Is this delivery already finished?</p>
-    <p>
-        <input type="radio" id="YES"
-            th:name="'newIsFinished'"
-            value="YES">
-        <label for="YES">Yes</label>
-        <input type="radio" id="NO"
-            th:name="'newIsFinished'"
-            value="NO">
-        <label for="NO">No</label>
-    </p>
-    <p><input type="submit" value="Create"></p>
+<form class="filter" action="#" th:action="@{/deliveries/create}" method="post">
+    <ol>
+        <li>From company
+            <ul>
+                <li th:each="company, stat : ${companies}">
+                    <input type="radio" th:id="${company.getId()}"
+                           th:name="'newFromCompanyId'"
+                           th:value="${company.getId()}">
+                    <label th:for="${company.getId()}"
+                           th:text="${company.getName()} + ', ' + ${company.getCountry()} + ', ' + ${company.getCity()} + ', ' + ${company.getAddress()}">
+                    </label>
+                </li>
+            </ul>
+        </li>
+        <li>To company:
+            <ul>
+                <li th:each="company, stat : ${companies}">
+                    <input type="radio" th:id="${company.getId()}"
+                           th:name="'newToCompanyId'"
+                           th:value="${company.getId()}">
+                    <label th:for="${company.getId()}"
+                           th:text="${company.getName()} + ', ' + ${company.getCountry()} + ', ' + ${company.getCity()} + ', ' + ${company.getAddress()}">
+                    </label>
+                </li>
+            </ul>
+        </li>
+        <li>Driver:
+            <ul>
+                <li th:each="employee, stat : ${employees}">
+                    <input type="radio" th:id="${employee.getEmployeeId()}"
+                           th:value="${employee.getEmployeeId()}"
+                           th:name="'newEmployeeId'">
+                    <label th:for="${employee.getEmployeeId()}"
+                           th:text="${employee.getFirstName()} + ' ' + ${employee.getLastName()}">
+                    </label>
+                </li>
+            </ul>
+        </li>
+        <li>Vehicle
+            <ul>
+                <li th:each="vehicle, stat : ${vehicles}">
+                    <input type="radio" th:id="${vehicle.getId()}"
+                           th:value="${vehicle.getId()}"
+                           th:name="'newVehicleId'">
+                    <label th:for="${vehicle.getId()}"
+                           th:text="${vehicle.getName()} + ', power: ' + ${vehicle.getPower()} + ' bhp, production year: ' + ${vehicle.getProductionYear()}">
+                    </label>
+                </li>
+            </ul>
+        </li>
+        <li>Cargo
+            <ul>
+                <li th:each="cargo, stat : ${cargos}">
+                    <input type="radio" th:id="${cargo.getId()}"
+                           th:value="${cargo.getId()}"
+                           th:name="'newCargoId'">
+                    <label th:for="${cargo.getId()}"
+                           th:text="${cargo.getName()}">
+                    </label>
+                </li>
+            </ul>
+        </li>
+        <li>Is already finished?
+            <ul>
+                <li>
+                    <input type="radio" id="YES"
+                           th:name="'newIsFinished'"
+                           value="YES">
+                    <label for="YES">Yes</label>
+                </li>
+                <li>
+                    <input type="radio" id="NO"
+                           th:name="'newIsFinished'"
+                           value="NO">
+                    <label for="NO">No</label>
+                </li>
+            </ul>
+        </li>
+        <li>Weight of cargo:
+            <ul>
+                <li>
+                    <input type="text" name="newWeight">
+                </li>
+            </ul>
+        </li>
+        <li>Start date:
+            <ul>
+                <li>
+                    <input type="date" name="newStartDate">
+                </li>
+            </ul>
+        </li>
+        <li>Finish date:
+            <ul>
+                <li>
+                    <input type="date" name="newFinishDate">
+                </li>
+            </ul>
+        </li>
+        <li>
+            <input type="submit" value="Create delivery">
+        </li>
+    </ol>
 </form>
 
 </body>

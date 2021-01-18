@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Vehicle section</title>
 </head>
 <body>
@@ -20,17 +22,38 @@
     </tr>
 </table>
 <h3>Vehicle Update</h3>
-
-<p th:text="'Current name: ' + ${vehicle.getName()}"></p>
-<p th:text="'Current power: ' + ${vehicle.getPower()}"></p>
-<p th:text="'Current production year: ' + ${vehicle.getProductionYear()}"></p>
-
-<form action="#" th:action="@{/vehicles/update}" method="post">
-    <p>New name: <input type="text" name="newName" th:value="${vehicle.getName()}"></p>
-    <p>New power: <input type="text" name="newPower" th:value="${vehicle.getPower()}"></p>
-    <p>New production year: <input type="text" name="newProductionYear" th:value="${vehicle.getProductionYear()}"></p>
+<form class="filter" action="#" th:action="@{/vehicles/update}" method="post">
+    <ol>
+        <li>Name:
+            <ul>
+                <li>
+                    <input type="text" name="newName" th:value="${vehicle.getName()}">
+                </li>
+            </ul>
+        </li>
+        <li>Power:
+            <ul>
+                <li>
+                    <input type="text" name="newPower" th:value="${vehicle.getPower()}">
+                </li>
+            </ul>
+        </li>
+        <li>Production year:
+            <ul>
+                <li>
+                    <input type="text" name="newProductionYear" th:value="${vehicle.getProductionYear()}">
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <input type="submit" value="Update vehicle">
+                </li>
+            </ul>
+        </li>
+    </ol>
     <input type="hidden" th:value="${vehicle.getName()}" name="oldName">
-    <p><input type="submit" value="Update"></p>
 </form>
 
 <p><a href="#" onclick="history.go(-1)">Go Back</a></p>

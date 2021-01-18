@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Refuelings section</title>
 </head>
 <body>
@@ -23,20 +25,18 @@
 <h3>Refuelings</h3>
 
 
-<table>
-    <th:block th:each="vehicle, statV : ${vehicles}">
+<table class="data" th:each="vehicle, statV : ${vehicles}">
         <tr>
-            <th colspan="2">Vehicle</th>
+            <th colspan="3">Vehicle</th>
             <th colspan="2">Power</th>
-            <th colspan="2">Production year</th>
+            <th colspan="3">Production year</th>
         </tr>
         <tr>
-            <td colspan="2" th:text="${vehicle.getName()}"></td>
+            <td colspan="3" th:text="${vehicle.getName()}"></td>
             <td colspan="2" th:text="${vehicle.getPower()}"></td>
-            <td colspan="2" th:text="${vehicle.getProductionYear()}"></td>
+            <td colspan="3" th:text="${vehicle.getProductionYear()}"></td>
         </tr>
         <tr th:unless="${refuelings.getAllForVehicle(vehicle.getId()).isEmpty()}">
-            <th colspan="2" style="border: none"></th>
             <th>Number</th>
             <th>Amount</th>
             <th>Price per litre</th>
@@ -46,20 +46,19 @@
             <th colspan="2">Action</th>
         </tr>
         <tr th:each="refueling, statR : ${refuelings.getAllForVehicle(vehicle.getId())}">
-            <td colspan="2" style="border: none"></td>
             <td th:text="${statR.count}"></td>
             <td th:text="${refueling.getAmount()}"></td>
             <td th:text="${refueling.getPricePerLitre()}"></td>
             <td th:text="${refueling.getCountry()}"></td>
             <td th:text="${refueling.getCity()}"></td>
             <td th:text="${refueling.getRefuelDate().toString()}"></td>
-            <td>
+            <td class="click">
                 <form action="#" th:action="@{/refuelings}" method="post">
                     <input type="hidden" th:value="${refueling.getId()}" name="deleteId">
                     <input type="submit" value="Delete" onclick="window.alert('Are you sure? Refueling will be deleted.')">
                 </form>
             </td>
-            <td>
+            <td class="click">
                 <form action="#" th:action="@{/refuelings/update}" method="get">
                     <input type="hidden" th:value="${refueling.getId()}" name="oldId">
                     <input type="submit" value="Update informations">
@@ -67,18 +66,13 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2" style="border: none"></td>
-            <td colspan="8">
+            <td class="click" colspan="8">
                 <form action="#" th:action="@{/refuelings/create}" method="get">
                     <input type="hidden" th:value="${vehicle.getId()}" name="vehicleId">
-                    <input type="submit" value="Create new">
+                    <input type="submit" value="Create new refueling data for this vehicle">
                 </form>
             </td>
         </tr>
-        <tr>
-            <td style="border: none"></td>
-        </tr>
-    </th:block>
 </table>
 
 </body>

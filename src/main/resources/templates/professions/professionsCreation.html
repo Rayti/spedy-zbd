@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Profession section</title>
 </head>
 <body>
@@ -22,11 +24,37 @@
 
 <h3>Profession Creation</h3>
 
-<form action="#" th:action="@{/professions/create}" method="post">
-    <p>New title: <input type="text" name="title"></p>
-    <p>New min. salary: <input type="text" name="minSalary" ></p>
-    <p>New max. salary: <input type="text" name="maxSalary"></p>
-    <p><input type="submit" value="Create"></p>
+<form class="filter" action="#" th:action="@{/professions/create}" method="post">
+    <ol>
+        <li>Title:
+            <ul>
+                <li>
+                    <input type="text" name="title">
+                </li>
+            </ul>
+        </li>
+        <li>Min. salary:
+            <ul>
+                <li>
+                    <input type="text" name="minSalary">
+                </li>
+            </ul>
+        </li>
+        <li>Max. salary:
+            <ul>
+                <li>
+                    <input type="text" name="maxSalary">
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <input type="submit" value="Create profession">
+                </li>
+            </ul>
+        </li>
+    </ol>
 </form>
 
 <p><a href="#" onclick="history.go(-1)">Go Back</a></p>

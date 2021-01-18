@@ -1,7 +1,7 @@
 
 * {
     font-family: "Lato", serif;
-    color: #1b1e1e;
+    color: black;
 }
 
 body {
@@ -12,31 +12,14 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
+h1 {
+    padding: 40px;
+    font-size: 40px;
+}
+
 p {
     text-align: center;
 }
-
-table{
-    margin-left: auto;
-    margin-right: auto;
-    width: fit-content;
-    border-collapse: collapse;
-}
-
-th {
-    border: 2px  #111037 solid ;
-    text-align: center;
-    padding: 10px;
-    align-content: center;
-}
-
-td {
-    border: 2px  #111037 solid ;
-    text-align: center;
-    padding: 10px;
-    align-content: center;
-}
-
 a{
     text-align: center;
     color: #600058;
@@ -60,31 +43,4 @@ a:hover {
 a:active {
     color: #600058;
     text-decoration: none;
-}
-
-.menu {
-    background-color: #7d1f6c;
-    border: 4px  #111037 hidden;
-    border-radius: 30px;
-}
-.menu a {
-    color: black;
-}
-
-.menu th:hover {
-    background-color: #2d215a;
-}
-
-.menu th {
-    border: 4px  #111037;
-    border-radius: 30px;
-    text-align: center;
-    padding: 15px;
-    align-content: center;
-}
-
-.active {
-    background-color: #2d215a;
-    border: 4px  #111037;
-    border-radius: 30px;
 }

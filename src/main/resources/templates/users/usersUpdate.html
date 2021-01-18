@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Users section</title>
 </head>
 <body>
@@ -22,15 +24,31 @@
 
 <h3>Users Update</h3>
 
-<p th:text="'Current login: ' + ${user.getLogin()}"></p>
-<p th:text="'Current password: ' + ${user.getPassword()}"></p>
-
-
-<form action="#" th:action="@{/users/update}" method="post">
-    <p>New login: <input type="text"  name="newLogin" th:value="${user.getLogin()}"></p>
-    <p>New password: <input type="text"  name="newPassword" th:value="${user.getPassword()}"></p>
+<form class="filter" action="#" th:action="@{/users/update}" method="post">
+    <ol>
+        <li>Login:
+            <ul>
+                <li>
+                    <input type="text"  name="newLogin" th:value="${user.getLogin()}">
+                </li>
+            </ul>
+        </li>
+        <li>Password:
+            <ul>
+                <li>
+                    <input type="text"  name="newPassword" th:value="${user.getPassword()}">
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <input type="submit" value="Update user">
+                </li>
+            </ul>
+        </li>
+    </ol>
     <input type="hidden" th:value="${user.getLogin}" name="oldLogin">
-    <p><input type="submit" value="Update"></p>
 </form>
 
 <p><a href="#" onclick="history.go(-1)">Go Back</a></p>

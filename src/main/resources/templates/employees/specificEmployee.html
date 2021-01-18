@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Employees section</title>
 </head>
 <body>
@@ -20,26 +22,59 @@
     </tr>
 </table>
 
-<h3>Employees</h3>
-<a><form action="#" th:action="@{/employees}" method="post">
-    <input type="hidden" th:value="${employee.getEmployeeId()}" name="deleteId" >
-    <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that employee will be lost.')">
-</form></a>
-<a><form action="#" th:action="@{/employees/update}" method="get">
-        <input type="hidden" th:value="${employee.getEmployeeId()}" name="id">
-        <input type="submit" value="Update">
-</form></a>
-
-<p th:text="'First name: ' + ${employee.getFirstName()}"></p>
-<p th:text="'Last name: ' + ${employee.getLastName()}"></p>
-<p th:text="'Salary: ' + ${employee.getSalary()}"></p>
-<p th:text="'Profession: ' + ${title}"></p>
-<p th:text="'Username: ' + ${userName}"></p>
-<p th:text="'Number of complaints: ' + ${numberOfComplaints}"></p>
-<p th:text="'Number of deliveries: ' + ${numberOfDeliveries}"></p>
+<h3>Specific Employee</h3>
 <br>
-<p>Complaints</p>
-<table>
+<table class="data">
+    <tr>
+        <th colspan="2">Employee</th>
+    </tr>
+    <tr>
+        <th>First name</th>
+        <td th:text="${employee.getFirstName()}"></td>
+    </tr>
+    <tr>
+        <th>Last name</th>
+        <td th:text="${employee.getLastName()}"></td>
+    </tr>
+    <tr>
+        <th>Salary</th>
+        <td th:text="${employee.getSalary()}"></td>
+    </tr>
+    <tr>
+        <th>Username</th>
+        <td th:text="${userName}"></td>
+    </tr>
+    <tr>
+        <th>Number of complaints</th>
+        <td th:text="${numberOfComplaints}"></td>
+    </tr>
+    <tr>
+        <th>Number of deliveries</th>
+        <td th:text="${numberOfDeliveries}"></td>
+    </tr>
+</table>
+<form class="filter" action="#" th:action="@{/employees}" method="post">
+    <ol>
+        <li>
+            <ul>
+                <li>
+                    <input type="hidden" th:value="${employee.getEmployeeId()}" name="id" >
+                    <input type="submit" value="Update employee" th:formaction="@{/employees/update}" formmethod="get">
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <input type="submit" value="Delete employee" onclick="window.alert('Are you sure?\n All data connected to that employee will be lost.')">
+                    <input type="hidden" th:value="${employee.getEmployeeId()}" name="deleteId" >
+                </li>
+            </ul>
+        </li>
+    </ol>
+</form>
+<br>
+<table class="data">
     <tr>
         <th colspan="4">Complaints</th>
     </tr>
@@ -53,16 +88,15 @@
         <td th:text="${stat.count}"></td>
         <td th:text="${complaint.complaint.getDescription()}"></td>
         <td th:text="${complaint.company.getName()}"></td>
-        <td>
+        <td class="click">
             <form action="#" th:action="@{/employees/delete_complaint}" method="post">
-
+                <input type="submit" value="Delete">
+                <input type="hidden" name="id" th:value="${complaint.complaint.getComplaintId()}">
             </form>
-            <input type="submit" value="Delete">
-            <input type="hidden" name="id" th:value="${complaint.complaint.getComplaintId()}">
         </td>
     </tr>
     <tr>
-        <td colspan="4">
+        <td class="click" colspan="4">
             <form action="#" th:action="@{/employees/complaint}" method="get">
                 <input type="hidden" th:value="${employee.getEmployeeId()}" name="employeeId">
                 <input type="submit" value="Create new complaint for this employee" >

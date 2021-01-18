@@ -49,6 +49,7 @@ public class DeliveryController {
         List<Delivery> deliveries = deliveryService.getAllDeliveries();
         model.addAttribute("deliveries", deliveries);
         model.addAttribute("oldSpecialOption", "none");
+        model.addAttribute("oldOrderBy", 1);
         return "deliveries/deliveries";
     }
 

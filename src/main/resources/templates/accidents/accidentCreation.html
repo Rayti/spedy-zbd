@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Accidents section</title>
 </head>
 <body>
@@ -22,7 +24,7 @@
 
 <h3>Accidents</h3>
 <br>
-<table>
+<table class="data">
     <tr>
         <th colspan="9">Chosen delivery</th>
     </tr>
@@ -52,11 +54,27 @@
 </table>
 <br>
 <p>New accident for this delivery</p>
-<form action="#" th:action="@{/accidents/create}" method="post">
-    <p>Date: <input type="date" name="eventDate"></p>
-    <p>Description: <input type="text" name="description"></p>
+<form class="filter" action="#" th:action="@{/accidents/create}" method="post">
+    <ol>
+        <li>Date:
+            <ul>
+                <li>
+                    <input type="date" name="eventDate">
+                </li>
+            </ul>
+        </li>
+        <li>Description
+            <ul>
+                <li>
+                    <input type="text" name="description">
+                </li>
+            </ul>
+        </li>
+        <li>
+            <input type="submit" value="Create accident">
+        </li>
+    </ol>
     <input type="hidden" name="deliveryId" th:value="${delivery.getDeliveryId()}">
-    <input type="submit" value="Create">
 </form>
 </body>
 </html>

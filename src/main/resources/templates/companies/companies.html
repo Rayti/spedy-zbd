@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Companies section</title>
 </head>
 <body>
@@ -22,10 +24,7 @@
 
 <h3>Companies</h3>
 
-<form action="#" th:action="@{/companies/create}" method="get">
-    <p>Create new Company <input type="submit" value="Create"></p>
-</form>
-<table>
+<table class="data">
     <tr>
         <th>Number</th>
         <th>Name</th>
@@ -43,16 +42,23 @@
         <td th:text="${company.getCountry()}"></td>
         <td th:text="${company.getCity()}"></td>
         <td th:text="${company.getAddress()}"></td>
-        <td>
+        <td class="click">
             <form action="#" th:action="@{/companies}" method="post">
                 <input type="hidden" th:value="${company.getName()}" name="deleteName" >
                 <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that company will be lost.')">
             </form>
         </td>
-        <td>
+        <td class="click">
             <form action="#" th:action="@{/companies/update}" method="get">
                 <input type="hidden" th:value="${company.getName()}" name="oldName">
                 <input type="submit" value="Update company informations">
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td class="click" colspan="8">
+            <form action="#" th:action="@{/companies/create}" method="get">
+                <input type="submit" value="Create new company">
             </form>
         </td>
     </tr>

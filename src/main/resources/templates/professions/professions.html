@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Users section</title>
 </head>
 <body>
@@ -21,11 +23,7 @@
 </table>
 
 <h3>Professions</h3>
-
-<form action="#" th:action="@{/professions/create}" method="get">
-    <p>Create new profession <input type="submit" value="Create"></p>
-</form>
-<table>
+<table class="data">
     <tr>
         <th>Number</th>
         <th>Title</th>
@@ -39,16 +37,23 @@
         <td th:text="${profession.getTitle()}"></td>
         <td th:text="${profession.getMinSalary()}"></td>
         <td th:text="${profession.getMaxSalary()}"></td>
-        <td>
+        <td class="click">
             <form action="#" th:action="@{/professions}" method="post">
                 <input type="hidden" th:value="${profession.getTitle()}" name="deleteTitle" >
                 <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that profession will be lost.')">
             </form>
         </td>
-        <td>
+        <td class="click">
             <form action="#" th:action="@{/professions/update}" method="get">
                 <input type="hidden" th:value="${profession.getTitle()}" name="title">
                 <input type="submit" value="Update title and/or salaries">
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td class="click" colspan="6">
+            <form action="#" th:action="@{/professions/create}" method="get">
+                <input type="submit" value="Create new profession">
             </form>
         </td>
     </tr>

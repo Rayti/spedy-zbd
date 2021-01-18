@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Cargos section</title>
 </head>
 <body>
@@ -22,15 +24,31 @@
 
 <h3>Cargo Update</h3>
 
-<p th:text="'Current name: ' + ${cargo.getName()}"></p>
-<p th:text="'Current description: ' + ${cargo.getDescription()}"></p>
-
-
-<form action="#" th:action="@{/cargos/update}" method="post">
-    <p>New name: <input type="text" name="newName" th:value="${cargo.getName()}"></p>
-    <p>New description: <input type="text" name="newDescription" th:value="${cargo.getDescription()}"></p>
+<form class="filter" action="#" th:action="@{/cargos/update}" method="post">
+    <ol>
+        <li>Name:
+            <ul>
+                <li>
+                    <input type="text" name="newName" th:value="${cargo.getName()}">
+                </li>
+            </ul>
+        </li>
+        <li>Description:
+            <ul>
+                <li>
+                    <input type="text" name="newDescription" th:value="${cargo.getDescription()}">
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <input type="submit" value="Update cargo">
+                </li>
+            </ul>
+        </li>
+    </ol>
     <input type="hidden" th:value="${cargo.getName()}" name="oldName">
-    <p><input type="submit" value="Update"></p>
 </form>
 
 <p><a href="#" onclick="history.go(-1)">Go Back</a></p>

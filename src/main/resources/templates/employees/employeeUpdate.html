@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Employees section</title>
 </head>
 <body>
@@ -24,34 +26,65 @@
 
 
 
-<form action="#" th:action="@{/employees/update}" method="post">
-    <p>First name: <input type="text" name="newFirstName" th:value="${employee.getFirstName()}"></p>
-    <p>Last name: <input type="text" name="newLastName" th:value="${employee.getLastName()}"></p>
-    <p>Salary: <input type="text" name="newSalary" th:value="${employee.getSalary()}"></p>
-    <p>Profession: </p>
-    <p th:each="profession, stat : ${professions}" >
-        <input th:if="${profession.getProfessionId().equals(employee.getProfessionId())}" type="radio" th:id="${profession.getTitle()}"
-               th:name="'newProfessionId'"
-               th:value="${profession.getProfessionId()}" checked>
-        <input th:unless="${profession.getProfessionId().equals(employee.getProfessionId())}" type="radio" th:id="${profession.getTitle()}"
-               th:name="'newProfessionId'"
-               th:value="${profession.getProfessionId()}">
-        <label th:for="${profession.getTitle()}"
-               th:text="${profession.getTitle()} + '- salary between ' + ${profession.getMinSalary()} + ' and ' + ${profession.getMaxSalary()}"></label><br>
-    </p>
-    <br>
-    <p>User</p>
-    <p th:each="user, stat : ${users}">
-        <input th:if="${user.getUserId().equals(employee.getUserId())}" type="radio" th:id="${user.getLogin()}"
-               th:name="'newUserId'"
-               th:value="${user.getUserId()}" checked>
-        <input th:unless="${user.getUserId().equals(employee.getUserId())}" type="radio" th:id="${user.getLogin()}"
-               th:name="'newUserId'"
-               th:value="${user.getUserId()}">
-        <label th:for="${user.getLogin()}" th:text="${user.getLogin()}"></label><br>
-    </p>
+<form class="filter" action="#" th:action="@{/employees/update}" method="post">
+    <ol>
+        <li>First name:
+            <ul>
+                <li>
+                    <input type="text" name="newFirstName" th:value="${employee.getFirstName()}">
+                </li>
+            </ul>
+        </li>
+        <li>Last name:
+            <ul>
+                <li>
+                    <input type="text" name="newLastName" th:value="${employee.getLastName()}">
+                </li>
+            </ul>
+        </li>
+        <li>Salary:
+            <ul>
+                <li>
+                    <input type="text" name="newSalary" th:value="${employee.getSalary()}">
+                </li>
+            </ul>
+        </li>
+        <li>Profession:
+            <ul>
+                <li th:each="profession, stat : ${professions}" >
+                    <input th:if="${profession.getProfessionId().equals(employee.getProfessionId())}" type="radio" th:id="${profession.getTitle()}"
+                           th:name="'newProfessionId'"
+                           th:value="${profession.getProfessionId()}" checked>
+                    <input th:unless="${profession.getProfessionId().equals(employee.getProfessionId())}" type="radio" th:id="${profession.getTitle()}"
+                           th:name="'newProfessionId'"
+                           th:value="${profession.getProfessionId()}">
+                    <label th:for="${profession.getTitle()}"
+                           th:text="${profession.getTitle()} + '- salary between ' + ${profession.getMinSalary()} + ' and ' + ${profession.getMaxSalary()}"></label>
+                </li>
+            </ul>
+        </li>
+        <li>Connected user:
+            <ul>
+                <li th:each="user, stat : ${users}">
+                    <input th:if="${user.getUserId().equals(employee.getUserId())}" type="radio" th:id="${user.getLogin()}"
+                           th:name="'newUserId'"
+                           th:value="${user.getUserId()}" checked>
+                    <input th:unless="${user.getUserId().equals(employee.getUserId())}" type="radio" th:id="${user.getLogin()}"
+                           th:name="'newUserId'"
+                           th:value="${user.getUserId()}">
+                    <label th:for="${user.getLogin()}" th:text="${user.getLogin()}"></label>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <input type="submit" value="Update employee">
+                </li>
+            </ul>
+        </li>
+    </ol>
     <input type="hidden" name="oldId" th:value="${employee.getEmployeeId()}">
-    <input type="submit" value="Update">
 </form>
 
 

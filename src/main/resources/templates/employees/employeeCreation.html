@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Employees section</title>
 </head>
 <body>
@@ -24,27 +26,58 @@
 
 
 
-<form action="#" th:action="@{/employees/create}" method="post">
-    <p>First name: <input type="text" name="newFirstName"></p>
-    <p>Last name: <input type="text" name="newLastName"></p>
-    <p>Salary: <input type="text" name="newSalary"></p>
-    <p>Profession: </p>
-    <p th:each="profession, stat : ${professions}" >
-        <input type="radio" th:id="${profession.getTitle()}"
-               th:name="'newProfessionId'"
-               th:value="${profession.getProfessionId()}">
-        <label th:for="${profession.getTitle()}"
-               th:text="${profession.getTitle()} + 'Salary between ' + ${profession.getMinSalary()} + ' and ' + ${profession.getMaxSalary()}"></label><br>
-    </p>
-    <br>
-    <p>Connect existing user</p>
-    <p th:each="user, stat : ${users}">
-        <input type="radio" th:id="${user.getLogin()}"
-               th:name="'newUserId'"
-               th:value="${user.getUserId()}">
-        <label th:for="${user.getLogin()}" th:text="${user.getLogin()}"></label><br>
-    </p>
-    <input type="submit" value="Create">
+<form class="filter" action="#" th:action="@{/employees/create}" method="post">
+    <ol>
+        <li>First name:
+            <ul>
+                <li>
+                    <input type="text" name="newFirstName">
+                </li>
+            </ul>
+        </li>
+        <li>Last name:
+            <ul>
+                <li>
+                    <input type="text" name="newLastName">
+                </li>
+            </ul>
+        </li>
+        <li>Salary:
+            <ul>
+                <li>
+                    <input type="text" name="newSalary">
+                </li>
+            </ul>
+        </li>
+        <li>Profession:
+            <ul>
+                <li th:each="profession, stat : ${professions}">
+                    <input type="radio" th:id="${profession.getTitle()}"
+                           th:name="'newProfessionId'"
+                           th:value="${profession.getProfessionId()}">
+                    <label th:for="${profession.getTitle()}"
+                           th:text="${profession.getTitle()} + 'Salary between ' + ${profession.getMinSalary()} + ' and ' + ${profession.getMaxSalary()}"></label>
+                </li>
+            </ul>
+        </li>
+        <li>Connect user:
+            <ul>
+                <li th:each="user, stat : ${users}">
+                    <input type="radio" th:id="${user.getLogin()}"
+                           th:name="'newUserId'"
+                           th:value="${user.getUserId()}">
+                    <label th:for="${user.getLogin()}" th:text="${user.getLogin()}"></label>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <input type="submit" value="Create employee">
+                </li>
+            </ul>
+        </li>
+    </ol>
 </form>
 
 

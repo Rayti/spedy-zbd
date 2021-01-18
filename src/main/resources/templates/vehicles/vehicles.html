@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Vehicles section</title>
 </head>
 <body>
@@ -20,11 +22,7 @@
     </tr>
 </table>
 <h3>Vehicles</h3>
-
-<form action="#" th:action="@{/vehicles/create}" method="get">
-    <p>Create new Vehicle <input type="submit" value="Create"></p>
-</form>
-<table>
+<table class="data">
     <tr>
         <th>Number</th>
         <th>Name</th>
@@ -38,21 +36,28 @@
         <td th:text="${vehicle.getName()}"></td>
         <td th:text="${vehicle.getPower()}"></td>
         <td th:text="${vehicle.getProductionYear()}"></td>
-        <td>
+        <td class="click">
             <form action="#" th:action="@{/refuelings/} + ${vehicle.getName()}">
                 <input type="submit" value="Go to it's refuelings">
             </form>
         </td>
-        <td>
+        <td class="click">
             <form action="#" th:action="@{/vehicles/update}" method="get">
                 <input type="hidden" th:value="${vehicle.getName()}" name="oldName">
                 <input type="submit" value="Update">
             </form>
         </td>
-        <td>
+        <td class="click">
             <form action="#" th:action="@{/vehicles}" method="post">
                 <input type="hidden" th:value="${vehicle.getName()}" name="deleteName" >
                 <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that vehicle will be lost.')">
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td class="click" colspan="7">
+            <form action="#" th:action="@{/vehicles/create}" method="get">
+                <input type="submit" value="Create new vehicle">
             </form>
         </td>
     </tr>

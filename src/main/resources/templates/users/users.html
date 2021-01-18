@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Users section</title>
 </head>
 <body>
@@ -21,15 +23,32 @@
 </table>
 
 <h3>Users</h3>
-<form action="#" th:action="@{/users/search}" method="get">
-    <p>Search with login pattern: <input type="text" th:value="${loginSearch}" name="loginSearch"></p>
-    <p><input type="submit" value="Submit"></p>
+<form class="filter" action="#" th:action="@{/users/search}" method="get">
+    <ol>
+        <li>Search
+            <ul>
+                <li>
+                    <input type="text" th:value="${loginSearch}" name="loginSearch">
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <input type="submit" value="Submit">
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <input type="submit" value="Clear filter" th:formaction="@{/users}" formmethod="get">
+                </li>
+            </ul>
+        </li>
+    </ol>
 </form>
-<p th:text="${loginSearch.isEmpty()} ? '' : 'Login search pattern: ' + ${loginSearch}"></p>
-<form action="#" th:action="@{/users/create}" method="get">
-    <p>Create new user <input type="submit" value="Create"></p>
-</form>
-<table>
+<table class="data">
     <tr>
         <th>Number</th>
         <th>Login</th>
@@ -41,17 +60,24 @@
         <td th:text="${stat.count}"></td>
         <td th:text="${user.getLogin()}"></td>
         <td th:text="${user.getPassword()}"></td>
-        <td>
+        <td class="click">
             <form action="#" th:action="@{/users}" method="post">
                 <input type="hidden" th:value="${user.getLogin()}" name="deleteLogin" >
                 <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that user will be lost.')">
             </form>
         </td>
-        <td>
+        <td class="click">
                 <form action="#" th:action="@{/users/update}" method="get">
                     <input type="hidden" th:value="${user.getLogin()}" name="login">
                     <input type="submit" value="Update login and/or password">
                 </form>
+        </td>
+    </tr>
+    <tr>
+        <td class="click" colspan="5">
+            <form action="#" th:action="@{/users/create}" method="get">
+                <input type="submit" value="Create new user">
+            </form>
         </td>
     </tr>
 </table>

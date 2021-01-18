@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Profession section</title>
 </head>
 <body>
@@ -22,17 +24,38 @@
 
 <h3>Profession Update</h3>
 
-<p th:text="'Current title: ' + ${profession.getTitle()}"></p>
-<p th:text="'Current min. salary: ' + ${profession.getMinSalary()}"></p>
-<p th:text="'Current max. salary: ' + ${profession.getMaxSalary()}"></p>
-
-
-<form action="#" th:action="@{/professions/update}" method="post">
-    <p>New title: <input type="text" name="newTitle" th:value="${profession.getTitle()}"></p>
-    <p>New min. salary: <input type="text" name="newMinSalary" th:value="${profession.getMinSalary()}"></p>
-    <p>New max. salary: <input type="text" name="newMaxSalary" th:value="${profession.getMaxSalary()}"></p>
+<form class="filter" action="#" th:action="@{/professions/update}" method="post">
+    <ol>
+        <li>Title:
+            <ul>
+                <li>
+                    <input type="text" name="newTitle" th:value="${profession.getTitle()}">
+                </li>
+            </ul>
+        </li>
+        <li>Min. salary:
+            <ul>
+                <li>
+                    <input type="text" name="newMinSalary" th:value="${profession.getMinSalary()}">
+                </li>
+            </ul>
+        </li>
+        <li>Max. salary:
+            <ul>
+                <li>
+                    <input type="text" name="newMaxSalary" th:value="${profession.getMaxSalary()}">
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <input type="submit" value="Update profession">
+                </li>
+            </ul>
+        </li>
+    </ol>
     <input type="hidden" th:value="${profession.getTitle()}" name="oldTitle">
-    <p><input type="submit" value="Update"></p>
 </form>
 
 <p><a href="#" onclick="history.go(-1)">Go Back</a></p>

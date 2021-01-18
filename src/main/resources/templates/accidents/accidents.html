@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Accidents section</title>
 </head>
 <body>
@@ -23,12 +25,8 @@
 <h3>Accidents</h3>
 
 
-<form action="#" th:action="@{/accidents/create}" method="get">
-    <p>Create new accident for this delivery<input type="submit" value="Create"></p>
-    <input type="hidden" name="deliveryId" th:value="${delivery.getDeliveryId()}">
-</form>
 <br>
-<table>
+<table class="data">
     <tr>
         <th colspan="9">Chosen delivery</th>
     </tr>
@@ -57,9 +55,9 @@
     </tr>
 </table>
 
-<table>
+<table class="data">
     <tr>
-        <th colspan="5">Accidents connected to this delivery</th>
+        <th colspan="7">Accidents connected to this delivery</th>
     </tr>
     <tr>
         <th>Number</th>
@@ -71,17 +69,25 @@
         <td th:text="${stat.count}"></td>
         <td th:text="${accident.getEventDate()}"></td>
         <td colspan="3" th:text="${accident.getDescription()}"></td>
-        <td>
+        <td class="click">
             <form action="#" th:action="@{/accidents/update}" method="get">
                 <input type="submit" value="Update">
                 <input type="hidden" name="accidentId" th:value="${accident.getAccidentId()}">
                 <input type="hidden" name="deliveryId" th:value="${delivery.getDeliveryId()}">
             </form>
         </td>
-        <td>
+        <td class="click">
             <form action="#" th:action="@{/accidents}" method="post">
                 <input type="submit" value="Delete">
                 <input type="hidden" name="accidentId" th:value="${accident.getAccidentId()}" onclick="window.alert('Whis accident will be deleted.')">
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td class="click" colspan="7">
+            <form action="#" th:action="@{/accidents/create}" method="get">
+                <input type="submit" value="Create new accident for this delivery">
+                <input type="hidden" name="deliveryId" th:value="${delivery.getDeliveryId()}">
             </form>
         </td>
     </tr>

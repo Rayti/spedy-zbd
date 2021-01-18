@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Cargos section</title>
 </head>
 <body>
@@ -22,10 +24,30 @@
 
 <h3>Cargo Creation</h3>
 
-<form action="#" th:action="@{/cargo/create}" method="post">
-    <p>New name: <input type="text" name="name"></p>
-    <p>New description: <input type="text" name="description" ></p>
-    <p><input type="submit" value="Create"></p>
+<form class="filter" action="#" th:action="@{/cargo/create}" method="post">
+    <ol>
+        <li>Name:
+            <ul>
+                <li>
+                    <input type="text" name="name">
+                </li>
+            </ul>
+        </li>
+        <li>Description:
+            <ul>
+                <li>
+                    <input type="text" name="description" >
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <input type="submit" value="Create cargo">
+                </li>
+            </ul>
+        </li>
+    </ol>
 </form>
 
 <p><a href="#" onclick="history.go(-1)">Go Back</a></p>

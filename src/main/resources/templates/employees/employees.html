@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Employees section</title>
 </head>
 <body>
@@ -22,19 +24,25 @@
 
 <h3>Employees</h3>
 
-<form action="#" th:action="@{/employees/search}" method="get">
-    <p>Search for employees with patterns</p>
-    <p>First name: <input type="text" th:value="${firstNamePattern}" name="firstNamePattern"></p>
-    <p>Last name: <input type="text" th:value="${lastNamePattern}" name="lastNamePattern" </p>
-    <p><input type="submit" value="Submit"></p>
+<form class="filter" action="#" th:action="@{/employees/search}" method="get">
+    <ol>
+        <li>Search
+            <ul>
+                <li>First name:
+                    <input type="text" th:value="${firstNamePattern}" name="firstNamePattern">
+                </li>
+                <li>Last name:
+                    <input type="text" th:value="${lastNamePattern}" name="lastNamePattern">
+                </li>
+                <li>
+                    <input type="submit" value="Submit">
+                </li>
+            </ul>
+        </li>
+    </ol>
 </form>
 
-<form action="#" th:action="@{/employees/create}" method="get">
-    <p>Create new employee <input type="submit" value="Submit"></p>
-
-</form>
-
-<table>
+<table class="data">
     <tr>
         <th>Number</th>
         <th>First name</th>
@@ -46,13 +54,18 @@
         <td th:text="${stat.count}"></td>
         <td th:text="${employee.getFirstName()}"></td>
         <td th:text="${employee.getLastName()}"></td>
-        <td>
-            <a>
-                <form action="#" th:action="@{/employees/specific}" method="get">
-                    <input type="hidden" th:value="${employee.getEmployeeId()}" name="id">
-                    <input type="submit" value="Check further info">
-                </form>
-            </a>
+        <td class="click">
+            <form action="#" th:action="@{/employees/specific}" method="get">
+                <input type="hidden" th:value="${employee.getEmployeeId()}" name="id">
+                <input type="submit" value="Check further info">
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td class="click" colspan="4">
+            <form action="#" th:action="@{/employees/create}" method="get">
+                <input type="submit" value="Create new employee">
+            </form>
         </td>
     </tr>
 </table>

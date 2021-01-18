@@ -1,0 +1,135 @@
+
+table.data {
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    border-spacing: 10px;
+}
+
+table.data tr:last-child td:first-child {
+    border-bottom-left-radius: 30px;
+}
+
+table.data tr:last-child td:last-child {
+    border-bottom-right-radius: 30px;
+}
+
+table.data tr:first-child th:first-child {
+    border-top-left-radius: 30px;
+}
+
+table.data tr:first-child th:last-child {
+    border-top-right-radius: 30px;
+}
+table.data tr:last-child th:first-child{
+    border-bottom-left-radius: 30px;
+}
+
+.data td {
+    background-color: #7d1f6c;
+    border: 2px  #111037 solid ;
+    text-align: center;
+    padding: 10px;
+    align-content: center;
+    box-shadow: 0px 0px 6px 2px #7d1f6c;
+}
+
+.data th {
+    background-color:  #4a267c;
+    border: 2px  #111037 solid;
+    text-align: center;
+    padding: 10px;
+    align-content: center;
+    box-shadow: 0px 0px 6px 2px #4a267c;
+}
+
+.data a{
+    color: black;
+    font-style: italic;
+}
+
+.data a:hover{
+    font-weight: bolder;
+    color: hotpink;
+}
+
+.data .click {
+    padding: 0px;
+}
+
+
+.click input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: none;
+    padding: 10px;
+    font-size: 17px;
+}
+
+
+td.click:hover {
+    background-color: #571f6f;
+    box-shadow: 0px 0px 20px 8px #4a267c;
+}
+
+.filter ol {
+    text-decoration: none;
+    list-style-type:none;
+    padding: 3px;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.filter ol > li{
+    text-decoration: none;
+    list-style-type:none;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border: 2px  #111037 solid;
+    box-shadow: 0px 0px 4px 2px #111037, inset 0px 0px 4px 1px #111037;
+    border-radius: 20px;
+    text-align: left;
+}
+
+.filter ol > li ul li {
+    text-decoration: none;
+    list-style-type:none;
+    padding: 2px;
+}
+
+.filter input[type=text]{
+    background-color: #7d1f6c;
+    border: 2px  #111037 solid;
+    padding: 2px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 4px 2px #7d1f6c;
+}
+
+.filter input[type=date] {
+    background-color: #7d1f6c;
+    border: 2px  #111037 solid;
+    padding: 2px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 4px 2px #7d1f6c;
+}
+
+.filter input[type=submit] {
+    background-color: #7d1f6c;
+    border: 2px  #111037 solid;
+    padding: 5px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 4px 2px #7d1f6c;
+}
+
+.filter input[type=submit]:hover{
+    box-shadow: 0px 0px 15px 6px #4a267c;
+    background-color: #4a267c;
+}

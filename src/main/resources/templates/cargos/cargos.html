@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Cargos section</title>
 </head>
 <body>
@@ -21,11 +23,7 @@
 </table>
 
 <h3>Cargos</h3>
-
-<form action="#" th:action="@{/cargos/create}" method="get">
-    <p>Create new Cargo <input type="submit" value="Create"></p>
-</form>
-<table>
+<table class="data">
     <tr>
         <th>Number</th>
         <th>Name</th>
@@ -37,17 +35,24 @@
         <td th:text="${stat.count}"></td>
         <td th:text="${cargo.getName()}"></td>
         <td th:text="${cargo.getDescription()}"></td>
-        <td>
+        <td class="click">
             <form action="#" th:action="@{/cargos}" method="post">
 
                 <input type="hidden" th:value="${cargo.getName()}" name="deleteName" >
                 <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that cargo will be lost.')">
             </form>
         </td>
-        <td>
+        <td class="click">
             <form action="#" th:action="@{/cargos/update}" method="get">
                 <input type="hidden" th:value="${cargo.getName()}" name="name">
                 <input type="submit" value="Update name and/or description">
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td class="click" colspan="5">
+            <form action="#" th:action="@{/cargos/create}" method="get">
+                <input type="submit" value="Create new cargo">
             </form>
         </td>
     </tr>

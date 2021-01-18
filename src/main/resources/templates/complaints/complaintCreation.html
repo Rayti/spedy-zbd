@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/mystyle.css"/>
+    <link rel="stylesheet" href="/menuStyle.css">
+    <link rel="stylesheet" href="/dataStyle.css">
     <title>Complaints section</title>
 </head>
 <body>
 <h1><a th:href="@{/}">SpedyszynSite</a></h1>
-<table>
+<table class="menu">
     <tr>
         <th><a th:href="@{/users}">Users</a></th>
         <th><a th:href="@{/professions}">Professions</a></th>
@@ -22,20 +24,49 @@
 
 <h3>Complaints</h3>
 
-<form action="#" th:action="@{/employees/complaint}" method="post">
-    <p>First name: <input type="text" th:value="${employee.getFirstName()}" readonly></p>
-    <p>Last name: <input type="text" th:value="${employee.getLastName()}" readonly></p>
-    <p>Company: </p>
-    <p th:each="company, stat : ${companies}">
-        <input type="radio" th:id="${company.getName()}"
-            th:name="'newCompanyId'"
-            th:value="${company.getId()}">
-        <label th:for="${company.getId()}"
-               th:text="${company.getName()}"></label>
-    </p>
-    <p>Description: <input type="text" name="newDescription"></p>
+<form class="filter" action="#" th:action="@{/employees/complaint}" method="post">
+    <ol>
+        <li>First name:
+            <ul>
+                <li>
+                    <input type="text" th:value="${employee.getFirstName()}" readonly>
+                </li>
+            </ul>
+        </li>
+        <li>Last name:
+            <ul>
+                <li>
+                    Last name: <input type="text" th:value="${employee.getLastName()}" readonly>
+                </li>
+            </ul>
+        </li>
+        <li>Company
+            <ul>
+                <li th:each="company, stat : ${companies}">
+                    <input type="radio" th:id="${company.getName()}"
+                           th:name="'newCompanyId'"
+                           th:value="${company.getId()}">
+                    <label th:for="${company.getId()}"
+                           th:text="${company.getName()}"></label>
+                </li>
+            </ul>
+        </li>
+        <li>Description
+            <ul>
+                <li>
+                    <input type="text" name="newDescription">
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <input type="submit" value="Create complaint">
+                </li>
+            </ul>
+        </li>
+    </ol>
     <input type="hidden" name="newEmployeeId" th:value="${employee.getEmployeeId()}">
-    <p><input type="submit" value="Create"></p>
 </form>
 
 </body>
