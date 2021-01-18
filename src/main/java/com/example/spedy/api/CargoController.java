@@ -25,8 +25,7 @@ public class CargoController {
 
     @GetMapping("cargos")
     public String showAllCargos(Model model) {
-        List<Cargo> cargoList = cargoService.getCargos();
-        model.addAttribute("cargos", cargoList);
+        addToModel(model, null, cargoService.getCargos());
         return "cargos/cargos";
     }
 
@@ -34,8 +33,8 @@ public class CargoController {
     public String deleteCargo(@RequestParam String deleteName, Model model) {
         Cargo cargo = cargoService.getCargo(deleteName);
         String message = cargoService.deleteCargo(cargo);
-        model.addAttribute("message", message);
-        return "info";
+        addToModel(model, message, cargoService.getCargos());
+        return "cargos/cargos";
     }
 
     @GetMapping("cargos/create")
@@ -49,8 +48,8 @@ public class CargoController {
                               Model model) {
         Cargo cargo = new Cargo(name, description);
         String message = cargoService.insertCargo(cargo);
-        model.addAttribute("message", message);
-        return "info";
+        addToModel(model, message, cargoService.getCargos());
+        return "cargos/cargos";
     }
 
     @GetMapping("cargos/update")
@@ -67,8 +66,8 @@ public class CargoController {
                               Model model) {
         Cargo cargo = changeCargoNameAndDescription(oldName, newName, newDescription);
         String message = cargoService.updateCargo(cargo);
-        model.addAttribute("message", message);
-        return "info";
+        addToModel(model, message, cargoService.getCargos());
+        return "cargos/cargos";
     }
 
     @NonNull
@@ -77,6 +76,11 @@ public class CargoController {
         cargo.setName(newName);
         cargo.setDescription(newDescription);
         return cargo;
+    }
+
+    private void addToModel(Model model, String message, List<Cargo> cargos){
+        model.addAttribute("message", message);
+        model.addAttribute("cargos", cargos);
     }
 
 }

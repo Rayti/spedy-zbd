@@ -23,6 +23,7 @@
 </table>
 
 <h3>Specific Employee</h3>
+<h4 th:if="${message != null}" th:text="${message}"></h4>
 <br>
 <table class="data">
     <tr>
@@ -74,6 +75,8 @@
                 <li>
                     <input type="hidden" th:value="${employee.getEmployeeId()}" name="id" >
                     <input type="submit" value="Update employee" th:formaction="@{/employees/update}" formmethod="get">
+                    <input type="hidden" name="firstNamePattern" th:value="${firstNamePattern}">
+                    <input type="hidden" name="lastNamePattern" th:value="${lastNamePattern}">
                 </li>
             </ul>
         </li>
@@ -82,6 +85,8 @@
                 <li>
                     <input type="submit" value="Delete employee" onclick="window.alert('Are you sure?\n All data connected to that employee will be lost.')">
                     <input type="hidden" th:value="${employee.getEmployeeId()}" name="deleteId" >
+                    <input type="hidden" name="firstNamePattern" th:value="${firstNamePattern}">
+                    <input type="hidden" name="lastNamePattern" th:value="${lastNamePattern}">
                 </li>
             </ul>
         </li>

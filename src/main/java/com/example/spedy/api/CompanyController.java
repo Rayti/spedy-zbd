@@ -37,7 +37,7 @@ public class CompanyController {
     @GetMapping("companies/{id}")
     public String showCompany(@PathVariable UUID id, Model model){
         Company company = companyService.getCompany(id);
-        model.addAttribute("companies", Collections.singletonList(company));
+        addToModel(model, null, Collections.singletonList(company));
         return "companies/companies";
     }
 
@@ -45,8 +45,8 @@ public class CompanyController {
     public String deleteCompany(@RequestParam String deleteName, Model model) {
         Company company = companyService.getCompany(deleteName);
         String message = companyService.deleteCompany(company);
-        model.addAttribute("message", message);
-        return "info";
+        addToModel(model, message, companyService.getCompanies());
+        return "companies/companies";
     }
 
     @GetMapping("companies/create")
@@ -63,8 +63,8 @@ public class CompanyController {
                                 Model model) {
         Company company = new Company(name, description, country, city, address);
         String message = companyService.insertCompany(company);
-        model.addAttribute("message", message);
-        return "info";
+        addToModel(model, message, companyService.getCompanies());
+        return "companies/companies";
     }
 
     @GetMapping("companies/update")
@@ -85,8 +85,8 @@ public class CompanyController {
         Company company = companyService.getCompany(oldName);
         changeCompanyData(newName, newDescription, newCountry, newCity, newAddress, company);
         String message = companyService.updateCompany(company);
-        model.addAttribute("message", message);
-        return "info";
+        addToModel(model, message, companyService.getCompanies());
+        return "companies/companies";
     }
 
     private void changeCompanyData(String newName, String newDescription, String newCountry, String newCity, String newAddress, Company company) {
@@ -95,5 +95,10 @@ public class CompanyController {
         company.setCountry(newCountry);
         company.setCity(newCity);
         company.setAddress(newAddress);
+    }
+
+    private void addToModel(Model model, String message, List<Company> companies){
+        model.addAttribute("message", message);
+        model.addAttribute("companies", companies);
     }
 }

@@ -23,6 +23,8 @@
 </table>
 
 <h3>Deliveries</h3>
+<h4 th:if="${message != null}" th:text="${message}"></h4>
+
 <table class="data">
     <tr>
         <th>Number</th>
@@ -40,8 +42,8 @@
 
     <tr th:each="delivery, stat : ${deliveries}">
         <td th:text="${stat.count}"></td>
-        <td><a th:href="@{companies/} + ${delivery.getFromCompanyId()}" th:text="${delivery.getFromCompanyName()}"></td>
-        <td th:text="${delivery.getToCompanyName()}"></td>
+        <td><a th:href="@{companies/} + ${delivery.getFromCompanyId()}" th:text="${delivery.getFromCompanyName()}"></a></td>
+        <td><a th:href="@{companies/} + ${delivery.getToCompanyId()}" th:text="${delivery.getToCompanyName()}"></a></td>
         <td th:text="${delivery.getEmployeeFirstName() + ' ' + delivery.getEmployeeLastName()}"></td>
         <td th:text="${delivery.getVehicleName()}"></td>
         <td th:text="${delivery.getCargoName()}"></td>
@@ -50,7 +52,7 @@
         <td th:text="${delivery.getFinishDate()}"></td>
         <td th:text="${delivery.getIsFinished()}"></td>
         <td class="click">
-            <form action="#" th:action="@{deliveries}" method="post">
+            <form action="#" th:action="@{/deliveries}" method="post">
                 <input type="hidden" name="deliveryId" th:value="${delivery.getDeliveryId()}">
                 <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n This delivery will be lost.')">
             </form>

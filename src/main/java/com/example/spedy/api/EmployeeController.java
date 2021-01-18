@@ -42,40 +42,32 @@ public class EmployeeController {
 
     @GetMapping("/employees")
     public String showAllEmployees(Model model) {
-        List<Employee> employees = employeeService.getAll();
-        model.addAttribute("employees", employees);
-        model.addAttribute("firstNamePattern", "");
-        model.addAttribute("lastNamePattern", "");
+        addToModel(model, "", "",
+                employeeService.getAll());
         return "employees/employees";
     }
 
     @PostMapping("/employees")
-    public String deleteEmployee(@RequestParam UUID deleteId, Model model) {
+    public String deleteEmployee(@RequestParam UUID deleteId,
+                                 Model model) {
         Employee employee = employeeService.getEmployee(deleteId);
         String message = employeeService.deleteEmployee(employee);
         model.addAttribute("message", message);
-        return "info";
+        addToModel(model, "", "", employeeService.getAll());
+        return "employees/employees";
     }
 
     @GetMapping("/employees/search")
     public String showEmployeesWithSearchPattern(@RequestParam String firstNamePattern,
                                                  @RequestParam String lastNamePattern,
                                                  Model model) {
-        List<Employee> employees = employeeService.getAll();
-        List<Employee> searchedEmployees = employees.stream()
-                .filter(emp ->
-                        emp.getFirstName().toLowerCase().contains(firstNamePattern.toLowerCase())
-                                && emp.getLastName().toLowerCase().contains(lastNamePattern.toLowerCase()))
-                .collect(Collectors.toList());
-        model.addAttribute("employees", searchedEmployees);
-        model.addAttribute("firstNamePattern", firstNamePattern);
-        model.addAttribute("lastNamePattern", lastNamePattern);
+        addToModel(model, firstNamePattern, lastNamePattern,
+                employeeService.getAllWithPatterns(firstNamePattern, lastNamePattern));
         return "employees/employees";
     }
 
     @GetMapping("/employees/specific")
-    public String showSpecificEmployee(@RequestParam UUID id,
-                                       Model model) {
+    public String showSpecificEmployee(@RequestParam UUID id, Model model) {
         handleSpecificEmployee(id, model);
         return "employees/specificEmployee";
     }
@@ -146,6 +138,7 @@ public class EmployeeController {
         List<User> users = getUsersWithNoEmployeeConnected();
         model.addAttribute("professions", professions);
         model.addAttribute("users", users);
+        addToModel(model, "", "", null);
         return "employees/employeeCreation";
 
     }
@@ -176,11 +169,13 @@ public class EmployeeController {
         } else {
             model.addAttribute("message", "Could not create employee. Salary does not match profession constraints.");
         }
-        return "info";
+        addToModel(model, "", "", employeeService.getAll());
+        return "employees/employees";
     }
 
     @GetMapping("/employees/update")
-    public String updateEmployeeForm(@RequestParam UUID id, Model model) {
+    public String updateEmployeeForm(@RequestParam UUID id,
+                                     Model model) {
         Employee employee = employeeService.getEmployee(id);
         List<Profession> professions = professionService.getProfessions();
         List<User> users = getUsersWithNoEmployeeConnected();
@@ -209,6 +204,14 @@ public class EmployeeController {
         } else {
             model.addAttribute("message", "Could not update employee. Salary does not match profession constraints.");
         }
-        return "info";
+        handleSpecificEmployee(oldId, model);
+        return "employees/specificEmployee";
     }
+
+    private void addToModel(Model model, String firstNamePattern, String lastNamePattern, List<Employee> employees) {
+        model.addAttribute("employees", employees);
+        model.addAttribute("firstNamePattern", firstNamePattern);
+        model.addAttribute("lastNamePattern", lastNamePattern);
+    }
+
 }

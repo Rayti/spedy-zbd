@@ -24,8 +24,7 @@ public class VehicleController {
 
     @GetMapping("vehicles")
     public String showAllVehicles(Model model) {
-        List<Vehicle> vehicles = vehicleService.getVehicles();
-        model.addAttribute("vehicles", vehicles);
+        addToModel(model, null, vehicleService.getVehicles());
         return "vehicles/vehicles";
     }
 
@@ -33,8 +32,8 @@ public class VehicleController {
     public String deleteVehicle(@RequestParam String deleteName, Model model) {
         Vehicle vehicle = vehicleService.getVehicle(deleteName);
         String message = vehicleService.deleteVehicle(vehicle);
-        model.addAttribute("message", message);
-        return "info";
+        addToModel(model, message, vehicleService.getVehicles());
+        return "vehicles/vehicles";
     }
 
     @GetMapping("vehicles/update")
@@ -52,8 +51,8 @@ public class VehicleController {
                                 Model model) {
         Vehicle vehicle = changeVehicleData(oldName, newName, newPower, newProductionYear);
         String message = vehicleService.updateVehicle(vehicle);
-        model.addAttribute("message", message);
-        return "info";
+        addToModel(model, message, vehicleService.getVehicles());
+        return "vehicles/vehicles";
     }
 
     @GetMapping("vehicles/create")
@@ -68,17 +67,21 @@ public class VehicleController {
                                 Model model) {
         Vehicle vehicle = new Vehicle(name, power, productionYear);
         String message = vehicleService.insertVehicle(vehicle);
-        model.addAttribute("message", message);
-        return "info";
+        addToModel(model, message, vehicleService.getVehicles());
+        return "vehicles/vehicles";
     }
 
     @NonNull
     private Vehicle changeVehicleData(String oldName, String newName, int newPower, int newProductionYear) {
-
         Vehicle vehicle = vehicleService.getVehicle(oldName);
         vehicle.setName(newName);
         vehicle.setPower(newPower);
         vehicle.setProductionYear(newProductionYear);
         return vehicle;
+    }
+
+    private void addToModel(Model model, String message, List<Vehicle> vehicles) {
+        model.addAttribute("message", message);
+        model.addAttribute("vehicles", vehicles);
     }
 }

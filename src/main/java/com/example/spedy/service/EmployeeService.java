@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service("employeeService")
 public class EmployeeService {
@@ -34,6 +35,15 @@ public class EmployeeService {
 
     public List<Employee> getAll() {
         return dao.selectAll();
+    }
+
+    public List<Employee> getAllWithPatterns(String firstNamePattern, String lastNamePattern) {
+        List<Employee> searchedEmployees = getAll().stream()
+                .filter(emp ->
+                        emp.getFirstName().toLowerCase().contains(firstNamePattern.toLowerCase())
+                                && emp.getLastName().toLowerCase().contains(lastNamePattern.toLowerCase()))
+                .collect(Collectors.toList());
+        return searchedEmployees;
     }
 
     public List<Employee> getAllForProfessionTitle(String title) {

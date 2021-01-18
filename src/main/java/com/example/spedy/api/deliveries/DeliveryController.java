@@ -58,7 +58,10 @@ public class DeliveryController {
         Delivery delivery = deliveryService.getDelivery(deliveryId);
         String message = deliveryService.deleteDelivery(delivery);
         model.addAttribute("message", message);
-        return "info";
+        model.addAttribute("deliveries", deliveryService.getAllDeliveries());
+        model.addAttribute("oldSpecialOption", "none");
+        model.addAttribute("oldOrderBy", 1);
+        return "deliveries/deliveries";
     }
 
     @GetMapping("deliveries/search")
@@ -121,7 +124,10 @@ public class DeliveryController {
         if (delivery.getIsFinished() == null) throw new NullPointerException("No isFinished value");
         String message = deliveryService.insertDelivery(delivery);
         model.addAttribute("message", message);
-        return "info";
+        model.addAttribute("deliveries", deliveryService.getAllDeliveries());
+        model.addAttribute("oldSpecialOption", "none");
+        model.addAttribute("oldOrderBy", 1);
+        return "deliveries/deliveries";
     }
 
     private boolean checkDataInput(HttpServletRequest request, Model model) {

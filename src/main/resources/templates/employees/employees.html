@@ -23,6 +23,7 @@
 </table>
 
 <h3>Employees</h3>
+<h4 th:if="${message != null}" th:text="${message}"></h4>
 
 <form class="filter" action="#" th:action="@{/employees/search}" method="get">
     <ol>
@@ -34,8 +35,19 @@
                 <li>Last name:
                     <input type="text" th:value="${lastNamePattern}" name="lastNamePattern">
                 </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
                 <li>
                     <input type="submit" value="Submit">
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li>
+                    <input type="submit" value="Clear filter" th:formaction="@{/employees}" formmethod="get">
                 </li>
             </ul>
         </li>
@@ -65,6 +77,8 @@
         <td class="click" colspan="4">
             <form action="#" th:action="@{/employees/create}" method="get">
                 <input type="submit" value="Create new employee">
+                <input type="hidden" name="firstNamePattern" th:value="${firstNamePattern}">
+                <input type="hidden" name="lastNamePattern" th:value="${lastNamePattern}">
             </form>
         </td>
     </tr>

@@ -34,9 +34,7 @@ public class RefuelingController {
 
     @GetMapping("refuelings")
     public String showAllRefuelings(Model model) {
-        List<Vehicle> vehicles = vehicleService.getVehicles();
-        model.addAttribute("refuelings", refuelingService);
-        model.addAttribute("vehicles", vehicles);
+        addToModel(model, null, refuelingService, vehicleService.getVehicles());
         return "refuelings/refuelings";
     }
 
@@ -45,8 +43,7 @@ public class RefuelingController {
     public String showSpecificRefuelings(@PathVariable String vehicleName, Model model) {
         List<Vehicle> vehicles = new ArrayList<>();
         vehicles.add(vehicleService.getVehicle(vehicleName));
-        model.addAttribute("refuelings", refuelingService);
-        model.addAttribute("vehicles", vehicles);
+        addToModel(model, null, refuelingService, vehicles);
         return "refuelings/refuelings";
     }
 
@@ -54,8 +51,8 @@ public class RefuelingController {
     public String deleteRefueling(@RequestParam UUID deleteId, Model model) {
         Refueling refueling = refuelingService.getRefueling(deleteId);
         String message = refuelingService.deleteRefueling(refueling);
-        model.addAttribute("message", message);
-        return "info";
+        addToModel(model, message, refuelingService, vehicleService.getVehicles());
+        return "refuelings/refuelings";
     }
 
     @GetMapping("refuelings/update")
@@ -80,8 +77,8 @@ public class RefuelingController {
         refueling.setCity(newCity);
         refueling.setRefuelDate(newRefuelDate);
         String message = refuelingService.updateRefueling(refueling);
-        model.addAttribute("message", message);
-        return "info";
+        addToModel(model, message, refuelingService, vehicleService.getVehicles());
+        return "refuelings/refuelings";
     }
 
     @GetMapping("refuelings/create")
@@ -101,8 +98,14 @@ public class RefuelingController {
         Refueling refueling = new Refueling(vehicleId, amount, pricePerLitre,
                 country, city, refuelDate);
         String message = refuelingService.insertRefueling(refueling);
+        addToModel(model, message, refuelingService, vehicleService.getVehicles());
+        return "refuelings/refuelings";
+    }
+
+    private void addToModel(Model model, String message, RefuelingService service, List<Vehicle> vehicles){
         model.addAttribute("message", message);
-        return "info";
+        model.addAttribute("refuelings", service);
+        model.addAttribute("vehicles", vehicles);
     }
 
 }

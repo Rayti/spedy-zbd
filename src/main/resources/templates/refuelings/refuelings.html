@@ -23,7 +23,7 @@
 </table>
 
 <h3>Refuelings</h3>
-
+<h4 th:if="${message != null}" th:text="${message}"></h4>
 
 <table class="data" th:each="vehicle, statV : ${vehicles}">
         <tr>

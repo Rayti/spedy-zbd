@@ -40,15 +40,14 @@ public class ProfessionController {
     public String deleteProfession(@RequestParam String deleteTitle, Model model) {
         Profession profession = professionService.getProfession(deleteTitle);
         String message = professionService.deleteProfession(profession);
-        model.addAttribute("message", message);
-        return "info";
+        addToModel(model, message, professionService.getProfessions());
+        return "professions/professions";
     }
 
     @GetMapping("professions/increase")
     public String increasePayRangeForAllProfessions(Model model){
         functionsService.increaseAllProfessionsPayRange(0.03f);
-        List<Profession> professionList = professionService.getProfessions();
-        model.addAttribute("professions", professionList);
+        addToModel(model, "Increased.", professionService.getProfessions());
         return "professions/professions";
     }
 
@@ -67,8 +66,8 @@ public class ProfessionController {
                                    Model model) {
         Profession profession = changeProfessionTitleAndSalaries(oldTitle, newTitle, newMinSalary, newMaxSalary);
         String message = professionService.updateProfession(profession);
-        model.addAttribute("message", message);
-        return "info";
+        addToModel(model, message, professionService.getProfessions());
+        return "professions/professions";
     }
 
     @NonNull
@@ -93,8 +92,13 @@ public class ProfessionController {
                                    Model model) {
         Profession profession = new Profession(minSalary, maxSalary, title);
         String message = professionService.insertProfession(profession);
+        addToModel(model, message, professionService.getProfessions());
+        return "professions/professions";
+    }
+
+    private void addToModel(Model model, String message, List<Profession> professions){
         model.addAttribute("message", message);
-        return "info";
+        model.addAttribute("professions", professions);
     }
 
 }

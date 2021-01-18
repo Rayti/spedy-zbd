@@ -26,31 +26,34 @@ public class UserController {
     @GetMapping("users")
     public String showAllUsers(Model model) {
         List<User> users = userService.getUsers();
-        model.addAttribute("users", users);
-        model.addAttribute("loginSearch", "");
+        addToModel(model, null, users, "");
         return "users/users";
     }
 
     @PostMapping("users")
-    public String deleteUser(@RequestParam String deleteLogin, Model model) {
+    public String deleteUser(@RequestParam String deleteLogin,
+                             @RequestParam String loginSearch,
+                             Model model) {
         User user = userService.getUser(deleteLogin);
         String message = userService.deleteUser(user);
-        model.addAttribute("message", message);
-        return "info";
+        addToModel(model, message, userService.getSpecificUsers(loginSearch), loginSearch);
+        return "users/users";
     }
 
     @GetMapping("users/search")
     public String showSpecificUsers(@RequestParam String loginSearch, Model model) {
         List<User> users = userService.getSpecificUsers(loginSearch);
-        model.addAttribute("users", users);
-        model.addAttribute("loginSearch", loginSearch);
+        addToModel(model, null, users, loginSearch);
         return "users/users";
     }
 
     @GetMapping("users/update")
-    public String updateUserForm(@RequestParam String login, Model model) {
+    public String updateUserForm(@RequestParam String login,
+                                 @RequestParam String loginSearch,
+                                 Model model) {
         User user = userService.getUser(login);
         model.addAttribute("user", user);
+        addToModel(model, null, null, loginSearch);
         return "users/usersUpdate";
     }
 
@@ -58,11 +61,12 @@ public class UserController {
     public String updateUser(@RequestParam String oldLogin,
                              @RequestParam String newLogin,
                              @RequestParam String newPassword,
+                             @RequestParam String loginSearch,
                              Model model) {
         User user = changeUserLoginAndPassword(oldLogin, newLogin, newPassword);
         String message = userService.updateUser(user);
-        model.addAttribute("message", message);
-        return "info";
+        addToModel(model, message, userService.getSpecificUsers(loginSearch), loginSearch);
+        return "users/users";
     }
 
     @NonNull
@@ -74,7 +78,9 @@ public class UserController {
     }
 
     @GetMapping("users/create")
-    public String createUserForm(Model model) {
+    public String createUserForm(@RequestParam String loginSearch,
+                                 Model model) {
+        model.addAttribute("loginSearch", loginSearch);
         return "users/usersCreation";
     }
 
@@ -83,8 +89,15 @@ public class UserController {
         User user = new User(
                 request.getParameter("newLogin"),
                 request.getParameter("newPassword"));
+        String loginSearch = request.getParameter("loginSearch");
         String message = userService.insertUser(user);
+        addToModel(model, message, userService.getSpecificUsers(loginSearch), loginSearch);
+        return "users/users";
+    }
+
+    private void addToModel(Model model, String message, List<User> users, String loginSearch){
         model.addAttribute("message", message);
-        return "info";
+        model.addAttribute("users", users);
+        model.addAttribute("loginSearch", loginSearch);
     }
 }

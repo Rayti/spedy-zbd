@@ -23,6 +23,8 @@
 </table>
 
 <h3>Users</h3>
+<h4 th:if="${message != null}" th:text="${message}"></h4>
+
 <form class="filter" action="#" th:action="@{/users/search}" method="get">
     <ol>
         <li>Search
@@ -63,12 +65,14 @@
         <td class="click">
             <form action="#" th:action="@{/users}" method="post">
                 <input type="hidden" th:value="${user.getLogin()}" name="deleteLogin" >
+                <input type="hidden" name="loginSearch" th:value="${loginSearch}">
                 <input type="submit" value="Delete" onclick="window.alert('Are you sure?\n All data connected to that user will be lost.')">
             </form>
         </td>
         <td class="click">
                 <form action="#" th:action="@{/users/update}" method="get">
                     <input type="hidden" th:value="${user.getLogin()}" name="login">
+                    <input type="hidden"  name="loginSearch" th:value="${loginSearch}">
                     <input type="submit" value="Update login and/or password">
                 </form>
         </td>
@@ -76,6 +80,7 @@
     <tr>
         <td class="click" colspan="5">
             <form action="#" th:action="@{/users/create}" method="get">
+                <input type="hidden"  name="loginSearch" th:value="${loginSearch}">
                 <input type="submit" value="Create new user">
             </form>
         </td>
